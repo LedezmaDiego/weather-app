@@ -1,29 +1,51 @@
-import { View } from 'react-native';
-import { EncabezadoDeCiudad } from './EncabezadoDeCiudad';
-import { NavegacionDeDias } from './NavegacionDeDias';
+import { View, Text } from 'react-native';
+import { Droplet, Gauge, Flag } from 'lucide-react-native';
 import { IconoDeClima } from './IconoDeClima';
-import { TemperaturaPrincipal } from './TemperaturaPrincipal';
-import { TemperaturasExtremas } from './TemperaturasExtremas';
-import { IndicadoresSecundarios } from './IndicadoresSecundarios';
+import { NavegacionDeDias } from './NavegacionDeDias';
+import { useFechas } from '@/src/hooks/useFechas';
 
-type Props = {
-  clima: any;
-};
+export const TarjetaDeClima = ({ clima }: any) => {
+  const { hoy, ayer, maniana } = useFechas();
 
-export const TarjetaDeClima = ({ clima }: Props) => {
   return (
-    <View className="w-40 items-center rounded-2xl bg-white p-4 shadow">
-      <EncabezadoDeCiudad nombreCiudad={clima.ciudad} />
+    <View className="m-3 w-72 items-center rounded-2xl bg-gray-200 p-4">
+      {/* FECHAS */}
+      <NavegacionDeDias ayer={ayer} hoy={hoy} maniana={maniana} />
 
-      <NavegacionDeDias diaActual={clima.dia} onDiaAnterior={() => {}} onDiaSiguiente={() => {}} />
+      {/* CIUDAD */}
+      <Text className="text-center text-xl font-bold uppercase">{clima.ciudad}</Text>
 
-      <IconoDeClima condicion={clima.condicion} />
+      {/* ICONO CLIMA */}
+      <View className="my-4">
+        <IconoDeClima condicion={clima.condicion} />
+      </View>
 
-      <TemperaturaPrincipal temperatura={clima.temperatura} />
+      {/* HUMEDAD */}
+      <View className="mt-2 items-center">
+        <Droplet size={20} />
+        <Text>{clima.indicadores[0].valor}%</Text>
+      </View>
 
-      <TemperaturasExtremas min={clima.min} max={clima.max} />
+      {/* PRESION */}
+      <View className="mt-2 items-center">
+        <Gauge size={20} />
+        <Text>{clima.indicadores[1].valor} mb</Text>
+      </View>
 
-      <IndicadoresSecundarios indicadores={clima.indicadores} />
+      {/* VIENTO */}
+      <View className="mt-2 items-center">
+        <Flag size={20} />
+        <Text>{clima.indicadores[2].valor} km/h</Text>
+      </View>
+
+      {/* TEMPERATURAS */}
+      <View className="mt-6 flex-row items-center gap-4">
+        <Text>{clima.min}°</Text>
+
+        <Text className="text-4xl font-bold">{clima.temperatura}°</Text>
+
+        <Text>{clima.max}°</Text>
+      </View>
     </View>
   );
 };

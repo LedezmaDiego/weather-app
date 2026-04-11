@@ -1,8 +1,8 @@
 import { ContenedorDePantallaClima } from '../contenedores/ContenedorDePantallaClima';
-import { useClima } from '@/src/hooks/useClima';
+import { useClima } from '../../hooks/useClima';
 
 export const ControladorDeClima = () => {
-  const { climaActual } = useClima();
+  const { climas } = useClima();
 
-  return <ContenedorDePantallaClima clima={climaActual} />;
+  return <ContenedorDePantallaClima climas={climas} />;
 };

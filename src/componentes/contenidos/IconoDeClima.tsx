@@ -1,18 +1,7 @@
-import { Text } from 'react-native';
+import { Sun, CloudRain, Cloud } from 'lucide-react-native';
 
-type Props = {
-  condicion: string;
-};
-
-const obtenerIconoSegunCondicion = (condicion: string) => {
-  if (condicion === 'soleado') return '☀️';
-  if (condicion === 'lluvia') return '🌧️';
-  if (condicion === 'nublado') return '☁️';
-  return '❓';
-};
-
-export const IconoDeClima = ({ condicion }: Props) => {
-  const icono = obtenerIconoSegunCondicion(condicion);
-
-  return <Text className="my-6 text-6xl">{icono}</Text>;
+export const IconoDeClima = ({ condicion }: any) => {
+  if (condicion.toLowerCase().includes('sol')) return <Sun size={80} />;
+  if (condicion.toLowerCase().includes('lluv')) return <CloudRain size={80} />;
+  return <Cloud size={80} />;
 };

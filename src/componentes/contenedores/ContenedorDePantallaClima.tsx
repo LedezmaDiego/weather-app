@@ -1,16 +1,19 @@
-import { View } from 'react-native';
-import { ContenedorDeListaDeClimas } from './ContenedorDeListaDeClimas';
+import { View, StyleSheet, ScrollView } from 'react-native';
+import { TarjetaDeClima } from '../contenidos/TarjetaDeClima';
 
-type Props = {
-  clima: any;
-};
-
-export const ContenedorDePantallaClima = ({ clima }: Props) => {
-  const listaDeClimas = [clima, clima, clima]; // 👈 3 TOKYO
-
+export const ContenedorDePantallaClima = ({ climas }: any) => {
   return (
-    <View className="flex-1 items-center justify-center bg-gray-100">
-      <ContenedorDeListaDeClimas climas={listaDeClimas} />
-    </View>
+    <ScrollView contentContainerStyle={styles.container}>
+      {climas.map((clima: any, index: number) => (
+        <TarjetaDeClima key={index} clima={clima} />
+      ))}
+    </ScrollView>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    alignItems: 'center',
+    marginTop: 50,
+  },
+});

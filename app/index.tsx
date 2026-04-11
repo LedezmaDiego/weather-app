@@ -1,7 +1,5 @@
 import { ControladorDeClima } from '@/src/componentes/controladores/ControladorDeClima';
 
-const PantallaPrincipal = () => {
+export default function Home() {
   return <ControladorDeClima />;
-};
-
-export default PantallaPrincipal;
+}

@@ -1,25 +1,45 @@
-import { useState } from 'react';
-import { DATOS_CLIMA } from '../constantes/clima';
+import { useEffect, useState } from 'react';
+import * as Location from 'expo-location';
+import { obtenerClimaPorCiudad } from '../servicios/weatherApi';
 
 export const useClima = () => {
-  const [indiceDiaActual, setIndiceDiaActual] = useState(0);
+  const [climas, setClimas] = useState<any[]>([]);
 
-  const cambiarDia = (index: number) => {
-    setIndiceDiaActual(index);
+  const obtenerUbicacion = async () => {
+    const { status } = await Location.requestForegroundPermissionsAsync();
+
+    if (status !== 'granted') {
+      console.log('Permiso denegado');
+      return 'Buenos Aires';
+    }
+
+    const location = await Location.getCurrentPositionAsync({});
+    const { latitude, longitude } = location.coords;
+
+    return `${latitude},${longitude}`;
   };
 
-  const irAlDiaAnterior = () => {
-    setIndiceDiaActual((prev) => (prev > 0 ? prev - 1 : prev));
+  const cargarClimas = async () => {
+    try {
+      const ubicacion = await obtenerUbicacion();
+
+      const ciudades = [
+        ubicacion, // tu ubicación
+        'Lima', // Perú
+        'Guatemala City', // Guatemala
+      ];
+
+      const resultados = await Promise.all(ciudades.map((c) => obtenerClimaPorCiudad(c)));
+
+      setClimas(resultados);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
-  const irAlDiaSiguiente = () => {
-    setIndiceDiaActual((prev) => (prev < DATOS_CLIMA.length - 1 ? prev + 1 : prev));
-  };
+  useEffect(() => {
+    cargarClimas();
+  }, []);
 
-  return {
-    climaActual: DATOS_CLIMA[indiceDiaActual],
-    cambiarDia,
-    irAlDiaAnterior,
-    irAlDiaSiguiente,
-  };
+  return { climas };
 };
