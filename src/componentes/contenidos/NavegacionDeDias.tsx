@@ -35,7 +35,7 @@ export const NavegacionDeDias = ({ indice, onCambiarDia, fechas }: Props) => {
       </Pressable>
 
       {/* CENTRO */}
-      <Text className="text-lg font-bold">{formatearFecha(fechaActual)}</Text>
+      <Text className="text-xl font-bold">{formatearFecha(fechaActual)}</Text>
 
       {/* DERECHA */}
       <Pressable

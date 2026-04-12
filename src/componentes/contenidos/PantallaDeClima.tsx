@@ -30,7 +30,7 @@ export const PantallaDeClima = ({ clima, indiceDiaSeleccionado, onCambiarDia }: 
   };
 
   return (
-    <View className="flex-1 bg-white px-6 pb-8 pt-14">
+    <View className="flex-1 justify-between bg-white px-6 pb-8 pt-14">
       {/* navegación */}
       <NavegacionDeDias
         indice={indiceDiaSeleccionado}
@@ -45,7 +45,7 @@ export const PantallaDeClima = ({ clima, indiceDiaSeleccionado, onCambiarDia }: 
 
       {/* icono */}
       <View className="items-center justify-center" style={{ minHeight: height * 0.35 }}>
-        <IconoDeClima condicion={diaSeleccionado.condicion} />
+        <IconoDeClima codigo={diaSeleccionado.codigoCondicion} />
       </View>
 
       {/* indicadores */}
@@ -69,7 +69,7 @@ export const PantallaDeClima = ({ clima, indiceDiaSeleccionado, onCambiarDia }: 
 
         {/* actual ajustada */}
         {esDiaActual && (
-          <Text className="text-4xl font-black text-black">{diaSeleccionado.temperatura}°</Text>
+          <Text className="text-5xl font-black text-black">{diaSeleccionado.temperatura}°</Text>
         )}
 
         {/* mínima */}
