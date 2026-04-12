@@ -1,8 +1,6 @@
-import { View, Dimensions } from 'react-native';
+import { View, useWindowDimensions } from 'react-native';
 import { TarjetaDeClima } from '../contenidos/TarjetaDeClima';
 import { ClimaPorDia } from '@/src/tipos/clima';
-
-const ANCHO_PANTALLA = Dimensions.get('window').width;
 
 type Props = {
   climas: ClimaPorDia[][];
@@ -11,18 +9,22 @@ type Props = {
 };
 
 export const ContenedorDePantallaClima = ({ climas, indices, onCambiarDia }: Props) => {
+  const { width, height } = useWindowDimensions();
+
+  const CARD_WIDTH = width / 3.2; // 🔒 ancho fijo relativo
+  const CARD_HEIGHT = height * 0.8; // 🔒 alto fijo relativo
+
   return (
     <View className="flex-1 items-center justify-center">
-      <View
-        style={{ width: ANCHO_PANTALLA }}
-        className="flex-row items-center justify-center gap-4">
+      <View className="flex-row gap-2">
         {climas.map((clima, index) => (
-          <TarjetaDeClima
-            key={index}
-            clima={clima}
-            indiceDiaSeleccionado={indices[index]}
-            onCambiarDia={(nuevoIndice) => onCambiarDia(index, nuevoIndice)}
-          />
+          <View key={index} style={{ width: CARD_WIDTH, height: CARD_HEIGHT }}>
+            <TarjetaDeClima
+              clima={clima}
+              indiceDiaSeleccionado={indices[index]}
+              onCambiarDia={(nuevoIndice) => onCambiarDia(index, nuevoIndice)}
+            />
+          </View>
         ))}
       </View>
     </View>

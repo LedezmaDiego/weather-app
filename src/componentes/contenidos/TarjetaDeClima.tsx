@@ -43,7 +43,7 @@ export const TarjetaDeClima = ({ clima, indiceDiaSeleccionado, onCambiarDia }: P
   };
 
   return (
-    <View className="max-w-[30%] flex-1 items-center rounded-2xl bg-gray-200 p-4">
+    <View className="flex-1 justify-between overflow-hidden rounded-2xl bg-gray-200 p-3">
       {/* NAVEGACIÓN */}
       <NavegacionDeDias
         indice={indiceDiaSeleccionado}
@@ -52,30 +52,31 @@ export const TarjetaDeClima = ({ clima, indiceDiaSeleccionado, onCambiarDia }: P
       />
 
       {/* CIUDAD */}
-      <Text className="text-center text-xl font-bold uppercase">{dia.ciudad}</Text>
+      <Text numberOfLines={1} className="text-center text-base font-bold uppercase">
+        {dia.ciudad}
+      </Text>
 
-      {/* ICONO SIEMPRE */}
-      <View className="my-4">
+      {/* ICONO */}
+      <View className="items-center">
         <IconoDeClima condicion={dia.condicion} />
       </View>
 
-      {/* INDICADORES SOLO HOY */}
+      {/* INDICADORES */}
       {esHoy && (
-        <View className="mt-2 w-full items-start">
+        <View className="w-full items-start">
           {dia.indicadores?.map((ind, index) => {
             let valor = ind.valor;
             let unidad = ind.unidad;
 
-            // 🔥 conversión mb → hPa (equivalente pero explícito)
             if (unidad === 'mb') {
-              valor = Math.round(valor * 1);
+              valor = Math.round(valor);
               unidad = 'hPa';
             }
 
             return (
               <View key={index} className="mb-1 flex-row items-center gap-2">
                 {obtenerIconoIndicador(ind.tipo)}
-                <Text>
+                <Text numberOfLines={1} className="text-sm">
                   {valor} {unidad}
                 </Text>
               </View>
@@ -85,12 +86,12 @@ export const TarjetaDeClima = ({ clima, indiceDiaSeleccionado, onCambiarDia }: P
       )}
 
       {/* TEMPERATURAS */}
-      <View className="mt-6 flex-row items-center gap-4">
-        <Text>{dia.min}°</Text>
+      <View className="flex-row items-center justify-center gap-2">
+        <Text className="text-sm">{dia.min}°</Text>
 
-        {esHoy && <Text className="text-4xl font-bold">{dia.temperatura}°</Text>}
+        {esHoy && <Text className="text-2xl font-bold">{dia.temperatura}°</Text>}
 
-        <Text>{dia.max}°</Text>
+        <Text className="text-sm">{dia.max}°</Text>
       </View>
     </View>
   );
