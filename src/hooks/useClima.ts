@@ -15,6 +15,8 @@ export const useClima = () => {
       const nuevoClima = await obtenerClimaPorCiudad(ubicacionActual);
 
       setClima(nuevoClima);
+
+      // 👇 IMPORTANTE: siempre arrancar en HOY (índice 1)
       setIndiceDiaSeleccionado(1);
     } catch (error) {
       console.error('Error al cargar clima', error);

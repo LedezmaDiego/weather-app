@@ -13,6 +13,11 @@ type Props = {
 export const PantallaDeClima = ({ clima, indiceDiaSeleccionado, onCambiarDia }: Props) => {
   const diaSeleccionado = clima[indiceDiaSeleccionado];
 
+  // debug
+  console.log('ÍNDICE:', indiceDiaSeleccionado);
+  console.log('FECHA:', diaSeleccionado?.fecha);
+  console.log('CIUDAD:', diaSeleccionado?.ciudad);
+
   if (!diaSeleccionado) return null;
 
   const esDiaActual = diaSeleccionado.temperatura !== undefined;

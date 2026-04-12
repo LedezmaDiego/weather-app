@@ -8,10 +8,11 @@ type Props = {
 };
 
 const formatearFecha = (fecha: string) => {
-  const date = new Date(fecha);
-  const dia = date.getDate();
-  const mes = date.getMonth() + 1;
+  const partes = fecha.split('-');
 
+  if (partes.length !== 3) return fecha;
+
+  const [anio, mes, dia] = partes;
   return `${dia}/${mes}`;
 };
 
@@ -22,7 +23,6 @@ export const NavegacionDeDias = ({ indice, onCambiarDia, fechas }: Props) => {
 
   return (
     <View className="mb-4 w-full flex-row items-center justify-between px-2">
-      {/* IZQUIERDA */}
       <Pressable
         onPress={() => indice > 0 && onCambiarDia(indice - 1)}
         className="flex-row items-center gap-1">
@@ -34,10 +34,8 @@ export const NavegacionDeDias = ({ indice, onCambiarDia, fechas }: Props) => {
         )}
       </Pressable>
 
-      {/* CENTRO */}
-      <Text className="text-2xl font-bold underline">{formatearFecha(fechaActual)}</Text>
+      <Text className="text-2xl font-bold">{formatearFecha(fechaActual)}</Text>
 
-      {/* DERECHA */}
       <Pressable
         onPress={() => indice < fechas.length - 1 && onCambiarDia(indice + 1)}
         className="flex-row items-center gap-1">
