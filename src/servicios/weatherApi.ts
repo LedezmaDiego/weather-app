@@ -19,7 +19,7 @@ export const obtenerClimaPorCiudad = async (ciudad: string): Promise<ClimaPorDia
 
     return {
       ciudad: data.location.name,
-      condicion: dia.day.condition.text, // 🔥 ahora cada día tiene su clima real
+      condicion: dia.day.condition.text,
       fecha: dia.date,
       temperatura: esHoy ? temperaturaActual : undefined,
       min,
@@ -34,7 +34,7 @@ export const obtenerClimaPorCiudad = async (ciudad: string): Promise<ClimaPorDia
             {
               tipo: 'Presión',
               valor: data.current.pressure_mb,
-              unidad: 'mb',
+              unidad: 'hPa',
             },
             {
               tipo: 'Viento',

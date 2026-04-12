@@ -1,53 +1,37 @@
 import { useEffect, useState } from 'react';
-import * as Location from 'expo-location';
-import { obtenerClimaPorCiudad } from '../servicios/weatherApi';
 import { ClimaPorDia } from '../tipos/clima';
+import { obtenerClimaPorCiudad } from '../servicios/weatherApi';
+import { useUbicacionActual } from './useUbicacionActual';
 
 export const useClima = () => {
-  const [climas, setClimas] = useState<ClimaPorDia[][]>([]);
-  const [indices, setIndices] = useState<number[]>([]);
+  const [clima, setClima] = useState<ClimaPorDia[]>([]);
+  const [indiceDiaSeleccionado, setIndiceDiaSeleccionado] = useState(1);
 
-  const obtenerUbicacion = async (): Promise<string> => {
-    const { status } = await Location.requestForegroundPermissionsAsync();
+  const { obtenerUbicacionActual } = useUbicacionActual();
 
-    if (status !== 'granted') {
-      return 'Buenos Aires';
-    }
-
-    const location = await Location.getCurrentPositionAsync({});
-    const { latitude, longitude } = location.coords;
-
-    return `${latitude},${longitude}`;
-  };
-
-  const cargarClimas = async () => {
+  const cargarClima = async () => {
     try {
-      const ubicacion = await obtenerUbicacion();
+      const ubicacionActual = await obtenerUbicacionActual();
+      const nuevoClima = await obtenerClimaPorCiudad(ubicacionActual);
 
-      const ciudades = [ubicacion, 'Lima', 'Guatemala City'];
-
-      const resultados = await Promise.all(ciudades.map((c) => obtenerClimaPorCiudad(c)));
-
-      setClimas(resultados);
-
-      // 🔥 HOY ES EL ÍNDICE 1
-      setIndices(resultados.map(() => 1));
+      setClima(nuevoClima);
+      setIndiceDiaSeleccionado(1);
     } catch (error) {
-      console.error(error);
+      console.error('Error al cargar clima', error);
     }
   };
 
-  const cambiarIndice = (tarjetaIndex: number, nuevoIndice: number) => {
-    setIndices((prev) => prev.map((val, i) => (i === tarjetaIndex ? nuevoIndice : val)));
+  const handleCambiarDia = (nuevoIndice: number) => {
+    setIndiceDiaSeleccionado(nuevoIndice);
   };
 
   useEffect(() => {
-    cargarClimas();
+    cargarClima();
   }, []);
 
   return {
-    climas,
-    indices,
-    cambiarIndice,
+    clima,
+    indiceDiaSeleccionado,
+    onCambiarDia: handleCambiarDia,
   };
 };

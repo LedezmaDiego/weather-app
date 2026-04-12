@@ -4,11 +4,18 @@ type Props = {
   condicion: string;
 };
 
+const TAMANIO_ICONO_GRANDE = 260;
+
 export const IconoDeClima = ({ condicion }: Props) => {
-  const c = condicion.toLowerCase();
+  const condicionNormalizada = condicion.toLowerCase();
 
-  if (c.includes('sol')) return <Sun size={80} />;
-  if (c.includes('lluv')) return <CloudRain size={80} />;
+  if (condicionNormalizada.includes('sol')) {
+    return <Sun size={TAMANIO_ICONO_GRANDE} strokeWidth={1.8} />;
+  }
 
-  return <Cloud size={80} />;
+  if (condicionNormalizada.includes('lluv')) {
+    return <CloudRain size={TAMANIO_ICONO_GRANDE} strokeWidth={1.8} />;
+  }
+
+  return <Cloud size={TAMANIO_ICONO_GRANDE} strokeWidth={1.8} />;
 };
