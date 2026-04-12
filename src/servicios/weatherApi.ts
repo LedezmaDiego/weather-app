@@ -20,6 +20,7 @@ export const obtenerClimaPorCiudad = async (ciudad: string): Promise<ClimaPorDia
     return {
       ciudad: data.location.name,
       condicion: dia.day.condition.text,
+      codigoCondicion: dia.day.condition.code,
       fecha: dia.date,
       temperatura: esHoy ? temperaturaActual : undefined,
       min,

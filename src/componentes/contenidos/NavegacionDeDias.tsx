@@ -29,13 +29,13 @@ export const NavegacionDeDias = ({ indice, onCambiarDia, fechas }: Props) => {
         {indice > 0 && (
           <>
             <ChevronLeft size={16} />
-            <Text>{formatearFecha(fechaAnterior)}</Text>
+            <Text className="opacity-70">{formatearFecha(fechaAnterior)}</Text>
           </>
         )}
       </Pressable>
 
       {/* CENTRO */}
-      <Text className="text-xl font-bold">{formatearFecha(fechaActual)}</Text>
+      <Text className="text-2xl font-bold underline">{formatearFecha(fechaActual)}</Text>
 
       {/* DERECHA */}
       <Pressable
@@ -43,7 +43,7 @@ export const NavegacionDeDias = ({ indice, onCambiarDia, fechas }: Props) => {
         className="flex-row items-center gap-1">
         {indice < fechas.length - 1 && (
           <>
-            <Text>{formatearFecha(fechaSiguiente)}</Text>
+            <Text className="opacity-70">{formatearFecha(fechaSiguiente)}</Text>
             <ChevronRight size={16} />
           </>
         )}
