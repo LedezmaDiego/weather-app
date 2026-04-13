@@ -10,7 +10,6 @@ type Props = {
   onCambiarDia: (nuevoIndice: number) => void;
 };
 
-// ✅ Mapper de código → string semántico
 const mapCodigoAString = (codigo: number): string => {
   if (codigo === 1000) return 'sunny';
   if ([1003].includes(codigo)) return 'partly-cloudy';
