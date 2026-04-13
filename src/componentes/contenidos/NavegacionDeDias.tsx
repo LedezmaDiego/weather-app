@@ -24,6 +24,7 @@ export const NavegacionDeDias = ({ indice, onCambiarDia, fechas }: Props) => {
   return (
     <View className="mb-4 w-full flex-row items-center px-2">
       <Pressable
+        testID="button-prev-day"
         onPress={() => indice > 0 && onCambiarDia(indice - 1)}
         className="flex-1 flex-row items-center">
         {indice > 0 && (
@@ -34,11 +35,14 @@ export const NavegacionDeDias = ({ indice, onCambiarDia, fechas }: Props) => {
         )}
       </Pressable>
 
-      <Text className="absolute left-1/2 -translate-x-1/2 text-2xl font-bold">
+      <Text
+        testID="navigation-current-day"
+        className="absolute left-1/2 -translate-x-1/2 text-2xl font-bold">
         {formatearFecha(fechaActual)}
       </Text>
 
       <Pressable
+        testID="button-next-day"
         onPress={() => indice < fechas.length - 1 && onCambiarDia(indice + 1)}
         className="flex-1 flex-row items-center justify-end">
         {indice < fechas.length - 1 && (

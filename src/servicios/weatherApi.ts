@@ -1,5 +1,6 @@
 import { ClimaPorDia } from '../tipos/clima';
 
+//  use dotenv
 const API_KEY = process.env.EXPO_PUBLIC_WEATHER_API_KEY;
 
 const formatearFecha = (date: Date) => {
