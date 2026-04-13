@@ -37,24 +37,20 @@ export const PantallaDeClima = ({ clima, indiceDiaSeleccionado, onCambiarDia }: 
   return (
     <View className="flex-1 bg-white">
       <View className="flex-1 items-center justify-evenly px-6">
-        {/* 🔹 Navegación */}
         <NavegacionDeDias
           indice={indiceDiaSeleccionado}
           onCambiarDia={onCambiarDia}
           fechas={clima.map((dia) => dia.fecha)}
         />
 
-        {/* 🔹 Ciudad */}
         <Text className="text-center text-3xl font-black uppercase tracking-widest text-black">
           {diaSeleccionado.ciudad}
         </Text>
 
-        {/* 🔹 Icono (contenedor fijo) */}
         <View className="h-[220px] w-[220px] items-center justify-center">
           <IconoDeClima codigo={diaSeleccionado.codigoCondicion} />
         </View>
 
-        {/* 🔹 Indicadores */}
         {diaSeleccionado.indicadores && (
           <View className="gap-3">
             {diaSeleccionado.indicadores.map((indicador) => (
@@ -69,19 +65,16 @@ export const PantallaDeClima = ({ clima, indiceDiaSeleccionado, onCambiarDia }: 
         )}
 
         <View className="w-full flex-row items-baseline justify-between px-10">
-          {/* MAX */}
           <Text className={`text-xl font-bold ${esDiaActual ? 'text-gray-500' : 'text-black'}`}>
             ↑ {Math.round(diaSeleccionado.max)}°
           </Text>
 
-          {/* ACTUAL */}
           {esDiaActual && (
             <Text className="text-5xl font-black leading-none text-black">
               {Math.round(diaSeleccionado.temperatura!)}°
             </Text>
           )}
 
-          {/* MIN */}
           <Text className={`text-xl font-bold ${esDiaActual ? 'text-gray-500' : 'text-black'}`}>
             ↓ {Math.round(diaSeleccionado.min)}°
           </Text>

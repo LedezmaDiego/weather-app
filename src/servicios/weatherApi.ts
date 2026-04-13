@@ -6,7 +6,6 @@ const formatearFecha = (date: Date) => {
   return date.toISOString().split('T')[0];
 };
 
-// conversión km/h → m/s
 const kmhAMetrosPorSegundo = (kmh: number) => kmh / 3.6;
 
 export const obtenerClimaPorCiudad = async (ciudad: string): Promise<ClimaPorDia[]> => {
@@ -28,7 +27,6 @@ export const obtenerClimaPorCiudad = async (ciudad: string): Promise<ClimaPorDia
 
   const diaAyer = dataAyer.forecast.forecastday[0];
 
-  // 🔹 AYER → mm reales
   const climaAyer: ClimaPorDia = {
     ciudad: dataAyer.location.name,
     condicion: diaAyer.day.condition.text,
@@ -56,7 +54,6 @@ export const obtenerClimaPorCiudad = async (ciudad: string): Promise<ClimaPorDia
     ],
   };
 
-  // 🔹 HOY y MAÑANA
   const climaForecast: ClimaPorDia[] = dataForecast.forecast.forecastday.map(
     (dia: any, index: number) => {
       const esHoy = index === 0;
@@ -68,7 +65,7 @@ export const obtenerClimaPorCiudad = async (ciudad: string): Promise<ClimaPorDia
         fecha: dia.date,
         temperatura: esHoy ? dataForecast.current.temp_c : undefined,
         min: dia.day.mintemp_c,
-        max: dia.day.maxtemp_c,
+        max: esHoy ? Math.max(dia.day.maxtemp_c, dataForecast.current.temp_c) : dia.day.maxtemp_c,
 
         indicadores: [
           {
@@ -77,7 +74,6 @@ export const obtenerClimaPorCiudad = async (ciudad: string): Promise<ClimaPorDia
             unidad: '%',
           },
           {
-            // 🔥 CLAVE: probabilidad en vez de mm
             tipo: 'Probabilidad de lluvia',
             valor: dia.day.daily_chance_of_rain,
             unidad: '%',
