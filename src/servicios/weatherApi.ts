@@ -6,12 +6,14 @@ const formatearFecha = (date: Date) => {
   return date.toISOString().split('T')[0];
 };
 
+// conversión km/h → m/s
+const kmhAMetrosPorSegundo = (kmh: number) => kmh / 3.6;
+
 export const obtenerClimaPorCiudad = async (ciudad: string): Promise<ClimaPorDia[]> => {
   const hoy = new Date();
   const ayerDate = new Date();
   ayerDate.setDate(hoy.getDate() - 1);
 
-  const hoyStr = formatearFecha(hoy);
   const ayerStr = formatearFecha(ayerDate);
 
   const resAyer = await fetch(
@@ -26,12 +28,13 @@ export const obtenerClimaPorCiudad = async (ciudad: string): Promise<ClimaPorDia
 
   const diaAyer = dataAyer.forecast.forecastday[0];
 
+  // 🔹 AYER → mm reales
   const climaAyer: ClimaPorDia = {
     ciudad: dataAyer.location.name,
     condicion: diaAyer.day.condition.text,
     codigoCondicion: diaAyer.day.condition.code,
     fecha: diaAyer.date,
-    temperatura: undefined, // no hay "actual"
+    temperatura: undefined,
     min: diaAyer.day.mintemp_c,
     max: diaAyer.day.maxtemp_c,
     indicadores: [
@@ -41,19 +44,19 @@ export const obtenerClimaPorCiudad = async (ciudad: string): Promise<ClimaPorDia
         unidad: '%',
       },
       {
-        tipo: 'Presión',
-        valor: 0, // API no da promedio claro
-        unidad: 'hPa',
+        tipo: 'Precipitación',
+        valor: diaAyer.day.totalprecip_mm,
+        unidad: 'mm',
       },
       {
         tipo: 'Viento',
-        valor: diaAyer.day.maxwind_kph,
-        unidad: 'km/h',
+        valor: kmhAMetrosPorSegundo(diaAyer.day.maxwind_kph),
+        unidad: 'm/s',
       },
     ],
   };
 
-  // hoy y mañana vienen juntos en el forecast, así que los mapeamos ambos de una
+  // 🔹 HOY y MAÑANA
   const climaForecast: ClimaPorDia[] = dataForecast.forecast.forecastday.map(
     (dia: any, index: number) => {
       const esHoy = index === 0;
@@ -66,25 +69,27 @@ export const obtenerClimaPorCiudad = async (ciudad: string): Promise<ClimaPorDia
         temperatura: esHoy ? dataForecast.current.temp_c : undefined,
         min: dia.day.mintemp_c,
         max: dia.day.maxtemp_c,
-        indicadores: esHoy
-          ? [
-              {
-                tipo: 'Humedad',
-                valor: dataForecast.current.humidity,
-                unidad: '%',
-              },
-              {
-                tipo: 'Presión',
-                valor: dataForecast.current.pressure_mb,
-                unidad: 'hPa',
-              },
-              {
-                tipo: 'Viento',
-                valor: dataForecast.current.wind_kph,
-                unidad: 'km/h',
-              },
-            ]
-          : undefined,
+
+        indicadores: [
+          {
+            tipo: 'Humedad',
+            valor: esHoy ? dataForecast.current.humidity : dia.day.avghumidity,
+            unidad: '%',
+          },
+          {
+            // 🔥 CLAVE: probabilidad en vez de mm
+            tipo: 'Probabilidad de lluvia',
+            valor: dia.day.daily_chance_of_rain,
+            unidad: '%',
+          },
+          {
+            tipo: 'Viento',
+            valor: kmhAMetrosPorSegundo(
+              esHoy ? dataForecast.current.wind_kph : dia.day.maxwind_kph
+            ),
+            unidad: 'm/s',
+          },
+        ],
       };
     }
   );

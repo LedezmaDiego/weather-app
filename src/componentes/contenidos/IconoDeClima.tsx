@@ -12,7 +12,7 @@ type Props = {
   codigo: number;
 };
 
-const TAMANIO_ICONO_GRANDE = 260;
+const TAMANIO_ICONO_GRANDE = 180;
 
 export const IconoDeClima = ({ codigo }: Props) => {
   // basado en WeatherAPI condition codes

@@ -22,10 +22,10 @@ export const NavegacionDeDias = ({ indice, onCambiarDia, fechas }: Props) => {
   const fechaSiguiente = fechas[indice + 1];
 
   return (
-    <View className="mb-4 w-full flex-row items-center justify-between px-2">
+    <View className="mb-4 w-full flex-row items-center px-2">
       <Pressable
         onPress={() => indice > 0 && onCambiarDia(indice - 1)}
-        className="flex-row items-center gap-1">
+        className="flex-1 flex-row items-center">
         {indice > 0 && (
           <>
             <ChevronLeft size={16} />
@@ -34,11 +34,13 @@ export const NavegacionDeDias = ({ indice, onCambiarDia, fechas }: Props) => {
         )}
       </Pressable>
 
-      <Text className="text-2xl font-bold">{formatearFecha(fechaActual)}</Text>
+      <Text className="absolute left-1/2 -translate-x-1/2 text-2xl font-bold">
+        {formatearFecha(fechaActual)}
+      </Text>
 
       <Pressable
         onPress={() => indice < fechas.length - 1 && onCambiarDia(indice + 1)}
-        className="flex-row items-center gap-1">
+        className="flex-1 flex-row items-center justify-end">
         {indice < fechas.length - 1 && (
           <>
             <Text className="opacity-70">{formatearFecha(fechaSiguiente)}</Text>

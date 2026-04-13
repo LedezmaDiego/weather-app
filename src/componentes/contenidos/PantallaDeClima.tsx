@@ -1,5 +1,5 @@
 import { View, Text } from 'react-native';
-import { Droplets, Gauge, Flag } from 'lucide-react-native';
+import { Droplets, Flag, CloudRain } from 'lucide-react-native';
 import { IconoDeClima } from './IconoDeClima';
 import { NavegacionDeDias } from './NavegacionDeDias';
 import { ClimaPorDia } from '@/src/tipos/clima';
@@ -13,12 +13,13 @@ type Props = {
 export const PantallaDeClima = ({ clima, indiceDiaSeleccionado, onCambiarDia }: Props) => {
   const diaSeleccionado = clima[indiceDiaSeleccionado];
 
-  // debug
-  console.log('ÍNDICE:', indiceDiaSeleccionado);
-  console.log('FECHA:', diaSeleccionado?.fecha);
-  console.log('CIUDAD:', diaSeleccionado?.ciudad);
-
-  if (!diaSeleccionado) return null;
+  if (!diaSeleccionado) {
+    return (
+      <View className="flex-1 items-center justify-center">
+        <Text>Cargando clima...</Text>
+      </View>
+    );
+  }
 
   const esDiaActual = diaSeleccionado.temperatura !== undefined;
 
@@ -26,7 +27,8 @@ export const PantallaDeClima = ({ clima, indiceDiaSeleccionado, onCambiarDia }: 
     const tipoNormalizado = tipo.toLowerCase();
 
     if (tipoNormalizado.includes('humedad')) return <Droplets size={18} />;
-    if (tipoNormalizado.includes('pres')) return <Gauge size={18} />;
+    if (tipoNormalizado.includes('prec')) return <CloudRain size={18} />;
+    if (tipoNormalizado.includes('prob')) return <CloudRain size={18} />;
     if (tipoNormalizado.includes('viento')) return <Flag size={18} />;
 
     return null;
@@ -34,29 +36,28 @@ export const PantallaDeClima = ({ clima, indiceDiaSeleccionado, onCambiarDia }: 
 
   return (
     <View className="flex-1 bg-white">
-      {/* CONTENEDOR CENTRADO */}
-      <View className="flex-1 items-center justify-center px-6">
-        {/* navegación */}
+      <View className="flex-1 items-center justify-evenly px-6">
+        {/* 🔹 Navegación */}
         <NavegacionDeDias
           indice={indiceDiaSeleccionado}
           onCambiarDia={onCambiarDia}
           fechas={clima.map((dia) => dia.fecha)}
         />
 
-        {/* ciudad */}
-        <Text className="mt-6 text-center text-3xl font-black uppercase tracking-widest text-black">
+        {/* 🔹 Ciudad */}
+        <Text className="text-center text-3xl font-black uppercase tracking-widest text-black">
           {diaSeleccionado.ciudad}
         </Text>
 
-        {/* icono */}
-        <View className="my-6 items-center justify-center">
+        {/* 🔹 Icono (contenedor fijo) */}
+        <View className="h-[220px] w-[220px] items-center justify-center">
           <IconoDeClima codigo={diaSeleccionado.codigoCondicion} />
         </View>
 
-        {/* indicadores */}
-        {esDiaActual && (
-          <View className="mb-6 gap-3">
-            {diaSeleccionado.indicadores?.map((indicador) => (
+        {/* 🔹 Indicadores */}
+        {diaSeleccionado.indicadores && (
+          <View className="gap-3">
+            {diaSeleccionado.indicadores.map((indicador) => (
               <View key={indicador.tipo} className="flex-row items-center gap-3">
                 {obtenerIconoIndicador(indicador.tipo)}
                 <Text className="text-lg text-black">
@@ -67,15 +68,23 @@ export const PantallaDeClima = ({ clima, indiceDiaSeleccionado, onCambiarDia }: 
           </View>
         )}
 
-        {/* temperaturas */}
-        <View className="flex-row items-end gap-6">
-          <Text className="text-xl font-semibold text-gray-500">{diaSeleccionado.max}°</Text>
+        <View className="w-full flex-row items-baseline justify-between px-10">
+          {/* MAX */}
+          <Text className={`text-xl font-bold ${esDiaActual ? 'text-gray-500' : 'text-black'}`}>
+            ↑ {Math.round(diaSeleccionado.max)}°
+          </Text>
 
+          {/* ACTUAL */}
           {esDiaActual && (
-            <Text className="text-5xl font-black text-black">{diaSeleccionado.temperatura}°</Text>
+            <Text className="text-5xl font-black leading-none text-black">
+              {Math.round(diaSeleccionado.temperatura!)}°
+            </Text>
           )}
 
-          <Text className="text-xl font-semibold text-gray-500">{diaSeleccionado.min}°</Text>
+          {/* MIN */}
+          <Text className={`text-xl font-bold ${esDiaActual ? 'text-gray-500' : 'text-black'}`}>
+            ↓ {Math.round(diaSeleccionado.min)}°
+          </Text>
         </View>
       </View>
     </View>
