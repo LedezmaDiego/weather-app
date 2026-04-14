@@ -1,0 +1,1324 @@
+
+====================
+C:\Users\Flor\weather-app\app.config.js:
+export default {
+  expo: {
+    extra: {
+      weatherApiKey: process.env.EXPO_PUBLIC_WEATHER_API_KEY,
+      eas: {
+        projectId: '4e4b3d3c-c8e9-41bf-a9e6-fb061d89797b',
+      },
+    },
+  },
+};
+
+====================
+C:\Users\Flor\weather-app\app.json:
+{
+  "expo": {
+    "name": "weather-app",
+    "slug": "weather-app",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/icon.png",
+    "scheme": "weather-app",
+    "userInterfaceStyle": "automatic",
+    "splash": {
+      "image": "./assets/images/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "permissions": [
+        "android.permission.ACCESS_COARSE_LOCATION",
+        "android.permission.ACCESS_FINE_LOCATION"
+      ],
+      "package": "com.ledezmadiego.weatherapp"
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "static",
+      "favicon": "./assets/images/favicon.png"
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Permitir que $(PRODUCT_NAME) use tu localización."
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "4e4b3d3c-c8e9-41bf-a9e6-fb061d89797b"
+      }
+    }
+  }
+}
+
+====================
+C:\Users\Flor\weather-app\babel.config.js:
+module.exports = function (api) {
+  api.cache(true);
+  return {
+    presets: [['babel-preset-expo', { jsxImportSource: 'nativewind' }], 'nativewind/babel'],
+  };
+};
+
+====================
+C:\Users\Flor\weather-app\eas.json:
+{
+  "cli": {
+    "version": ">= 18.6.0",
+    "appVersionSource": "remote"
+  },
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal"
+    },
+    "preview": {
+      "distribution": "internal",
+      "android": {
+        "buildType": "apk"
+      }
+    },
+    "production": {
+      "autoIncrement": true
+    }
+  },
+  "submit": {
+    "production": {}
+  }
+}
+
+====================
+C:\Users\Flor\weather-app\metro.config.js:
+const { getDefaultConfig } = require('expo/metro-config');
+const { withNativeWind } = require('nativewind/metro');
+
+const config = getDefaultConfig(__dirname);
+
+module.exports = withNativeWind(config, { input: './global.css', inlineRem: 16 });
+
+====================
+C:\Users\Flor\weather-app\nativewind-env.d.ts:
+/// <reference types="nativewind/types" />
+
+====================
+C:\Users\Flor\weather-app\package.json:
+{
+  "name": "weather-app",
+  "main": "expo-router/entry",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "expo start",
+    "dev": "expo start -c",
+    "android": "expo start -c --android",
+    "ios": "expo start -c --ios",
+    "web": "expo start -c --web",
+    "clean": "rm -rf .expo node_modules",
+    "tests": "jest"
+  },
+  "jest": {
+    "preset": "jest-expo",
+    "transformIgnorePatterns": []
+  },
+  "dependencies": {
+    "@react-navigation/native": "^7.0.0",
+    "@rn-primitives/portal": "~1.4.0",
+    "@rn-primitives/slot": "^1.4.0",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "dotenv": "^17.4.1",
+    "expo": "~55.0.9",
+    "expo-constants": "~55.0.9",
+    "expo-linking": "~55.0.9",
+    "expo-location": "~55.1.8",
+    "expo-router": "~55.0.8",
+    "expo-splash-screen": "~55.0.13",
+    "expo-status-bar": "~55.0.4",
+    "expo-system-ui": "~55.0.11",
+    "lucide-react-native": "^1.8.0",
+    "nativewind": "^4.2.3",
+    "react": "19.2.0",
+    "react-dom": "19.2.0",
+    "react-native": "0.83.4",
+    "react-native-reanimated": "4.2.1",
+    "react-native-safe-area-context": "~5.6.2",
+    "react-native-screens": "~4.23.0",
+    "react-native-svg": "15.15.3",
+    "react-native-web": "^0.21.0",
+    "react-native-worklets": "0.7.2",
+    "tailwind-merge": "^3.5.0",
+    "tailwindcss": "^3.4.14",
+    "tailwindcss-animate": "^1.0.7"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.26.0",
+    "@testing-library/react-native": "^13.3.3",
+    "@types/jest": "29.5.14",
+    "@types/react": "~19.2.10",
+    "jest": "~29.7.0",
+    "jest-expo": "~55.0.15",
+    "prettier": "^3.6.2",
+    "prettier-plugin-tailwindcss": "^0.6.14",
+    "typescript": "~5.9.2"
+  },
+  "private": true
+}
+
+====================
+C:\Users\Flor\weather-app\README.md:
+# Weather App
+
+Aplicación mobile desarrollada con Expo + React Native que muestra el clima actual y próximos días según la ubicación del usuario.
+
+---
+
+## Descargas
+
+- APK (Android):
+  https://github.com/LedezmaDiego/weather-app/releases/download/v1.0.0/WeatherApp-v1.0.0.apk
+
+---
+
+## Instalación en dispositivo (Android)
+
+### Opción 1 — Instalar APK (recomendado para usuarios)
+
+1. Descargar la APK desde la sección "Descargas"
+2. Transferir el archivo al dispositivo
+3. Abrir el archivo `.apk`
+4. Aceptar la instalación desde orígenes desconocidos si es necesario
+5. Instalar la aplicación
+
+---
+
+### Opción 2 — Usar Expo Go (modo desarrollo)
+
+> Requiere conocimientos técnicos y API Key
+
+1. Instalar Expo Go en el dispositivo
+2. Clonar el repositorio:
+
+```bash
+git clone https://github.com/LedezmaDiego/weather-app.git
+cd weather-app
+```
+
+3. Crear archivo `.env`:
+
+La aplicación utiliza WeatherAPI
+Para desarrollo:
+
+Crear una cuenta en [https://www.weatherapi.com/](https://www.weatherapi.com/)
+Obtener una API Key
+Crear archivo `.env` en el proyecto:
+
+```bash
+EXPO_PUBLIC_WEATHER_API_KEY=tu_api_key
+```
+
+> ⚠️ La APK ya incluye una API Key funcional, no es necesario configurarla para uso normal
+
+4. Instalar dependencias:
+
+```bash
+bun install
+```
+
+5. Iniciar el servidor:
+
+```bash
+bun run dev
+```
+
+6. Escanear el QR con Expo Go
+
+---
+
+## Funcionalidades
+
+- Obtención de ubicación actual (GPS)
+- Clima del día actual
+- Día anterior
+- Pronóstico de próximos días
+- Navegación entre días
+- Indicadores:
+  - Humedad
+  - Probabilidad de lluvia
+  - Viento
+
+---
+
+## Ubicación
+
+- La app solicita permisos de ubicación
+- Si el usuario no los concede, usa:
+
+```bash
+Ciudad Autónoma de Buenos Aires
+```
+
+---
+
+## Notas importantes
+
+- Funciona con Expo Go
+- La APK no requiere configuración adicional
+- El modo desarrollo requiere API Key
+- Requiere conexión a internet
+- Los cambios se reflejan en tiempo real
+
+====================
+C:\Users\Flor\weather-app\tailwind.config.js:
+const { hairlineWidth } = require('nativewind/theme');
+
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  darkMode: 'class',
+  content: ['./app/**/*.{ts,tsx}', './components/**/*.{ts,tsx}', './src/**/*.{ts,tsx}'],
+  presets: [require('nativewind/preset')],
+  theme: {
+    extend: {
+      colors: {
+        border: 'hsl(var(--border))',
+        input: 'hsl(var(--input))',
+        ring: 'hsl(var(--ring))',
+        background: 'hsl(var(--background))',
+        foreground: 'hsl(var(--foreground))',
+        primary: {
+          DEFAULT: 'hsl(var(--primary))',
+          foreground: 'hsl(var(--primary-foreground))',
+        },
+        secondary: {
+          DEFAULT: 'hsl(var(--secondary))',
+          foreground: 'hsl(var(--secondary-foreground))',
+        },
+        destructive: {
+          DEFAULT: 'hsl(var(--destructive))',
+          foreground: 'hsl(var(--destructive-foreground))',
+        },
+        muted: {
+          DEFAULT: 'hsl(var(--muted))',
+          foreground: 'hsl(var(--muted-foreground))',
+        },
+        accent: {
+          DEFAULT: 'hsl(var(--accent))',
+          foreground: 'hsl(var(--accent-foreground))',
+        },
+        popover: {
+          DEFAULT: 'hsl(var(--popover))',
+          foreground: 'hsl(var(--popover-foreground))',
+        },
+        card: {
+          DEFAULT: 'hsl(var(--card))',
+          foreground: 'hsl(var(--card-foreground))',
+        },
+      },
+      borderRadius: {
+        lg: 'var(--radius)',
+        md: 'calc(var(--radius) - 2px)',
+        sm: 'calc(var(--radius) - 4px)',
+      },
+      borderWidth: {
+        hairline: hairlineWidth(),
+      },
+      keyframes: {
+        'accordion-down': {
+          from: { height: '0' },
+          to: { height: 'var(--radix-accordion-content-height)' },
+        },
+        'accordion-up': {
+          from: { height: 'var(--radix-accordion-content-height)' },
+          to: { height: '0' },
+        },
+      },
+      animation: {
+        'accordion-down': 'accordion-down 0.2s ease-out',
+        'accordion-up': 'accordion-up 0.2s ease-out',
+      },
+    },
+  },
+  future: {
+    hoverOnlyWhenSupported: true,
+  },
+  plugins: [require('tailwindcss-animate')],
+};
+
+====================
+C:\Users\Flor\weather-app\tsconfig.json:
+{
+  "extends": "expo/tsconfig.base",
+  "compilerOptions": {
+    "types": [
+      "jest"
+    ],
+    "jsx": "react-jsx",
+    "strict": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "*"
+      ]
+    }
+  },
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    "nativewind-env.d.ts"
+  ]
+}
+
+====================
+C:\Users\Flor\weather-app\app\+html.tsx:
+import { ScrollViewStyleReset } from 'expo-router/html';
+import { type PropsWithChildren } from 'react';
+
+// This file is web-only and used to configure the root HTML for every
+// web page during static rendering.
+// The contents of this function only run in Node.js environments and
+// do not have access to the DOM or browser APIs.
+export default function Root({ children }: PropsWithChildren) {
+  return (
+    <html lang="en" className="bg-background">
+      <head>
+        <meta charSet="utf-8" />
+        <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+        {/*
+          Disable body scrolling on web. This makes ScrollView components work closer to how they do on native.
+          However, body scrolling is often nice to have for mobile web. If you want to enable it, remove this line.
+        */}
+        <ScrollViewStyleReset />
+
+        {/* Add any additional <head> elements that you want globally available on web... */}
+      </head>
+      <body>{children}</body>
+    </html>
+  );
+}
+
+====================
+C:\Users\Flor\weather-app\app\+not-found.tsx:
+import { Link, Stack } from 'expo-router';
+import { View } from 'react-native';
+import { Text } from '@/components/ui/text';
+
+export default function NotFoundScreen() {
+  return (
+    <>
+      <Stack.Screen options={{ title: 'Oops!' }} />
+      <View>
+        <Text>This screen doesn't exist.</Text>
+
+        <Link href="/">
+          <Text>Go to home screen!</Text>
+        </Link>
+      </View>
+    </>
+  );
+}
+
+====================
+C:\Users\Flor\weather-app\app\index.tsx:
+import { ControladorDeClima } from '@/src/componentes/controladores/ControladorDeClima';
+
+export default function Home() {
+  return <ControladorDeClima />;
+}
+
+====================
+C:\Users\Flor\weather-app\app\_layout.tsx:
+import '@/global.css';
+
+import { NAV_THEME } from '@/lib/theme';
+import { ThemeProvider } from '@react-navigation/native';
+import { PortalHost } from '@rn-primitives/portal';
+import { Stack } from 'expo-router';
+import { StatusBar } from 'expo-status-bar';
+import { useColorScheme } from 'nativewind';
+
+export {
+  // Catch any errors thrown by the Layout component.
+  ErrorBoundary,
+} from 'expo-router';
+
+export default function RootLayout() {
+  const { colorScheme } = useColorScheme();
+
+  return (
+    <ThemeProvider value={NAV_THEME[colorScheme ?? 'light']}>
+      <StatusBar style={colorScheme === 'dark' ? 'light' : 'dark'} />
+      <Stack>
+        <Stack.Screen name="index" options={{ headerShown: false }} />
+      </Stack>
+      <PortalHost />
+    </ThemeProvider>
+  );
+}
+
+====================
+C:\Users\Flor\weather-app\example\example.tsx:
+import { PropsWithChildren } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+
+export const CustomText = ({ children }: PropsWithChildren) => <Text>{children}</Text>;
+
+export default function HomeScreen() {
+  return (
+    <View style={styles.container}>
+      <CustomText>Welcome!</CustomText>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
+
+====================
+C:\Users\Flor\weather-app\lib\theme.ts:
+import { DarkTheme, DefaultTheme, type Theme } from '@react-navigation/native';
+ 
+export const THEME = {
+  light: {
+    background: 'hsl(0 0% 100%)',
+    foreground: 'hsl(0 0% 3.9%)',
+    card: 'hsl(0 0% 100%)',
+    cardForeground: 'hsl(0 0% 3.9%)',
+    popover: 'hsl(0 0% 100%)',
+    popoverForeground: 'hsl(0 0% 3.9%)',
+    primary: 'hsl(0 0% 9%)',
+    primaryForeground: 'hsl(0 0% 98%)',
+    secondary: 'hsl(0 0% 96.1%)',
+    secondaryForeground: 'hsl(0 0% 9%)',
+    muted: 'hsl(0 0% 96.1%)',
+    mutedForeground: 'hsl(0 0% 45.1%)',
+    accent: 'hsl(0 0% 96.1%)',
+    accentForeground: 'hsl(0 0% 9%)',
+    destructive: 'hsl(0 84.2% 60.2%)',
+    border: 'hsl(0 0% 89.8%)',
+    input: 'hsl(0 0% 89.8%)',
+    ring: 'hsl(0 0% 63%)',
+    radius: '0.625rem',
+    chart1: 'hsl(12 76% 61%)',
+    chart2: 'hsl(173 58% 39%)',
+    chart3: 'hsl(197 37% 24%)',
+    chart4: 'hsl(43 74% 66%)',
+    chart5: 'hsl(27 87% 67%)',
+  },
+  dark: {
+    background: 'hsl(0 0% 3.9%)',
+    foreground: 'hsl(0 0% 98%)',
+    card: 'hsl(0 0% 3.9%)',
+    cardForeground: 'hsl(0 0% 98%)',
+    popover: 'hsl(0 0% 3.9%)',
+    popoverForeground: 'hsl(0 0% 98%)',
+    primary: 'hsl(0 0% 98%)',
+    primaryForeground: 'hsl(0 0% 9%)',
+    secondary: 'hsl(0 0% 14.9%)',
+    secondaryForeground: 'hsl(0 0% 98%)',
+    muted: 'hsl(0 0% 14.9%)',
+    mutedForeground: 'hsl(0 0% 63.9%)',
+    accent: 'hsl(0 0% 14.9%)',
+    accentForeground: 'hsl(0 0% 98%)',
+    destructive: 'hsl(0 70.9% 59.4%)',
+    border: 'hsl(0 0% 14.9%)',
+    input: 'hsl(0 0% 14.9%)',
+    ring: 'hsl(300 0% 45%)',
+    radius: '0.625rem',
+    chart1: 'hsl(220 70% 50%)',
+    chart2: 'hsl(160 60% 45%)',
+    chart3: 'hsl(30 80% 55%)',
+    chart4: 'hsl(280 65% 60%)',
+    chart5: 'hsl(340 75% 55%)',
+  },
+};
+ 
+export const NAV_THEME: Record<'light' | 'dark', Theme> = {
+  light: {
+    ...DefaultTheme,
+    colors: {
+      background: THEME.light.background,
+      border: THEME.light.border,
+      card: THEME.light.card,
+      notification: THEME.light.destructive,
+      primary: THEME.light.primary,
+      text: THEME.light.foreground,
+    },
+  },
+  dark: {
+    ...DarkTheme,
+    colors: {
+      background: THEME.dark.background,
+      border: THEME.dark.border,
+      card: THEME.dark.card,
+      notification: THEME.dark.destructive,
+      primary: THEME.dark.primary,
+      text: THEME.dark.foreground,
+    },
+  },
+};
+
+====================
+C:\Users\Flor\weather-app\lib\utils.ts:
+import { clsx, type ClassValue } from 'clsx';
+import { twMerge } from 'tailwind-merge';
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
+
+====================
+C:\Users\Flor\weather-app\src\componentes\contenedores\ContenedorDePantallaClima.tsx:
+import { View } from 'react-native';
+import { PantallaDeClima } from '../contenidos/PantallaDeClima';
+import { ClimaPorDia } from '@/src/tipos/clima';
+
+type Props = {
+  clima: ClimaPorDia[];
+  indiceDiaSeleccionado: number;
+  onCambiarDia: (nuevoIndice: number) => void;
+};
+
+export const ContenedorDePantallaClima = ({
+  clima,
+  indiceDiaSeleccionado,
+  onCambiarDia,
+}: Props) => {
+  return (
+    <View className="flex-1">
+      <PantallaDeClima
+        clima={clima}
+        indiceDiaSeleccionado={indiceDiaSeleccionado}
+        onCambiarDia={onCambiarDia}
+      />
+    </View>
+  );
+};
+
+====================
+C:\Users\Flor\weather-app\src\componentes\contenidos\IconoDeClima.tsx:
+import {
+  Sun,
+  Cloud,
+  CloudRain,
+  CloudSun,
+  CloudSnow,
+  CloudFog,
+  CloudLightning,
+} from 'lucide-react-native';
+import {
+  CODIGOS_CLIMA_SOLEADO,
+  CODIGOS_CLIMA_PARCIALMENTE_NUBLADO,
+  CODIGOS_CLIMA_NUBLADO,
+  CODIGOS_CLIMA_NIEBLA,
+  CODIGOS_CLIMA_LLUVIA,
+  CODIGOS_CLIMA_TORMENTA,
+} from '@/src/constantes/clima';
+
+type Props = {
+  codigo: number;
+};
+
+const TAMANIO_ICONO = 180;
+
+export const IconoDeClima = ({ codigo }: Props) => {
+  if (CODIGOS_CLIMA_SOLEADO.includes(codigo)) {
+    return <Sun size={TAMANIO_ICONO} strokeWidth={1.8} />;
+  }
+
+  if (CODIGOS_CLIMA_PARCIALMENTE_NUBLADO.includes(codigo)) {
+    return <CloudSun size={TAMANIO_ICONO} strokeWidth={1.8} />;
+  }
+
+  if (CODIGOS_CLIMA_NUBLADO.includes(codigo)) {
+    return <Cloud size={TAMANIO_ICONO} strokeWidth={1.8} />;
+  }
+
+  if (CODIGOS_CLIMA_NIEBLA.includes(codigo)) {
+    return <CloudFog size={TAMANIO_ICONO} strokeWidth={1.8} />;
+  }
+
+  if (CODIGOS_CLIMA_LLUVIA.includes(codigo)) {
+    return <CloudRain size={TAMANIO_ICONO} strokeWidth={1.8} />;
+  }
+
+  if (CODIGOS_CLIMA_TORMENTA.includes(codigo)) {
+    return <CloudLightning size={TAMANIO_ICONO} strokeWidth={1.8} />;
+  }
+
+  return <Cloud size={TAMANIO_ICONO} strokeWidth={1.8} />;
+};
+
+====================
+C:\Users\Flor\weather-app\src\componentes\contenidos\NavegacionDeDias.tsx:
+import { View, Text, Pressable } from 'react-native';
+import { ChevronLeft, ChevronRight } from 'lucide-react-native';
+
+type Props = {
+  indice: number;
+  onCambiarDia: (nuevoIndice: number) => void;
+  fechas: string[];
+};
+
+const formatearFecha = (fecha: string) => {
+  const partes = fecha.split('-');
+
+  if (partes.length !== 3) return fecha;
+
+  const [anio, mes, dia] = partes;
+  return `${dia}/${mes}`;
+};
+
+export const NavegacionDeDias = ({ indice, onCambiarDia, fechas }: Props) => {
+  const fechaActual = fechas[indice];
+  const fechaAnterior = fechas[indice - 1];
+  const fechaSiguiente = fechas[indice + 1];
+
+  return (
+    <View className="mb-4 w-full flex-row items-center px-2">
+      <Pressable
+        testID="button-prev-day"
+        onPress={() => indice > 0 && onCambiarDia(indice - 1)}
+        className="flex-1 flex-row items-center">
+        {indice > 0 && (
+          <>
+            <ChevronLeft size={16} />
+            <Text className="opacity-70">{formatearFecha(fechaAnterior)}</Text>
+          </>
+        )}
+      </Pressable>
+
+      <Text
+        testID="navigation-current-day"
+        className="absolute left-1/2 -translate-x-1/2 text-2xl font-bold">
+        {formatearFecha(fechaActual)}
+      </Text>
+
+      <Pressable
+        testID="button-next-day"
+        onPress={() => indice < fechas.length - 1 && onCambiarDia(indice + 1)}
+        className="flex-1 flex-row items-center justify-end">
+        {indice < fechas.length - 1 && (
+          <>
+            <Text className="opacity-70">{formatearFecha(fechaSiguiente)}</Text>
+            <ChevronRight size={16} />
+          </>
+        )}
+      </Pressable>
+    </View>
+  );
+};
+
+====================
+C:\Users\Flor\weather-app\src\componentes\contenidos\PantallaDeClima.tsx:
+import { View, Text } from 'react-native';
+import { Droplets, Flag, CloudRain } from 'lucide-react-native';
+import { IconoDeClima } from './IconoDeClima';
+import { NavegacionDeDias } from './NavegacionDeDias';
+import { ClimaPorDia } from '@/src/tipos/clima';
+import {
+  CODIGOS_CLIMA_SOLEADO,
+  CODIGOS_CLIMA_PARCIALMENTE_NUBLADO,
+  CODIGOS_CLIMA_NUBLADO,
+  CODIGOS_CLIMA_NIEBLA,
+  CODIGOS_CLIMA_LLUVIA,
+  CODIGOS_CLIMA_TORMENTA,
+} from '@/src/constantes/clima';
+
+type Props = {
+  clima: ClimaPorDia[];
+  indiceDiaSeleccionado: number;
+  onCambiarDia: (nuevoIndice: number) => void;
+};
+
+const mapearCodigoACondicion = (codigo: number): string => {
+  if (CODIGOS_CLIMA_SOLEADO.includes(codigo)) return 'sunny';
+  if (CODIGOS_CLIMA_PARCIALMENTE_NUBLADO.includes(codigo)) return 'partly-cloudy';
+  if (CODIGOS_CLIMA_NUBLADO.includes(codigo)) return 'cloudy';
+  if (CODIGOS_CLIMA_NIEBLA.includes(codigo)) return 'fog';
+  if (CODIGOS_CLIMA_LLUVIA.includes(codigo)) return 'rain';
+  if (CODIGOS_CLIMA_TORMENTA.includes(codigo)) return 'storm';
+
+  return 'unknown';
+};
+
+export const PantallaDeClima = ({ clima, indiceDiaSeleccionado, onCambiarDia }: Props) => {
+  const diaSeleccionado = clima[indiceDiaSeleccionado];
+
+  if (!diaSeleccionado) {
+    return (
+      <View className="flex-1 items-center justify-center">
+        <Text>Cargando clima...</Text>
+      </View>
+    );
+  }
+
+  const esDiaActual = diaSeleccionado.temperatura !== undefined;
+
+  const obtenerIconoIndicador = (tipo: string) => {
+    const tipoNormalizado = tipo.toLowerCase();
+
+    if (tipoNormalizado.includes('humedad')) return <Droplets size={18} />;
+    if (tipoNormalizado.includes('prec')) return <CloudRain size={18} />;
+    if (tipoNormalizado.includes('prob')) return <CloudRain size={18} />;
+    if (tipoNormalizado.includes('viento')) return <Flag size={18} />;
+
+    return null;
+  };
+
+  const condition = mapearCodigoACondicion(diaSeleccionado.codigoCondicion);
+
+  return (
+    <View testID="screen-weather" className="flex-1 bg-white">
+      <View className="flex-1 items-center justify-evenly px-6">
+        <NavegacionDeDias
+          indice={indiceDiaSeleccionado}
+          onCambiarDia={onCambiarDia}
+          fechas={clima.map((dia) => dia.fecha)}
+        />
+
+        <Text
+          testID="header-city"
+          className="text-center text-3xl font-black uppercase tracking-widest text-black">
+          {diaSeleccionado.ciudad}
+        </Text>
+
+        <View
+          testID={`icon-weather-${condition}`}
+          accessibilityRole="image"
+          className="h-[220px] w-[220px] items-center justify-center">
+          <IconoDeClima codigo={diaSeleccionado.codigoCondicion} />
+        </View>
+
+        {diaSeleccionado.indicadores && (
+          <View className="gap-3">
+            {diaSeleccionado.indicadores.map((indicador) => (
+              <View
+                testID="metric-item"
+                key={indicador.tipo}
+                className="flex-row items-center gap-3">
+                <View testID="metric-icon">{obtenerIconoIndicador(indicador.tipo)}</View>
+                <Text testID="metric-value" className="text-lg text-black">
+                  {Math.round(indicador.valor)} {indicador.unidad}
+                </Text>
+              </View>
+            ))}
+          </View>
+        )}
+
+        <View className="w-full flex-row items-baseline justify-between px-10">
+          <Text
+            testID="temp-max"
+            className={`text-xl font-bold ${esDiaActual ? 'text-gray-500' : 'text-black'}`}>
+            ↑ {Math.round(diaSeleccionado.max)}°
+          </Text>
+
+          {esDiaActual && (
+            <Text testID="temp-current" className="text-5xl font-black leading-none text-black">
+              {Math.round(diaSeleccionado.temperatura!)}°
+            </Text>
+          )}
+
+          <Text
+            testID="temp-min"
+            className={`text-xl font-bold ${esDiaActual ? 'text-gray-500' : 'text-black'}`}>
+            ↓ {Math.round(diaSeleccionado.min)}°
+          </Text>
+        </View>
+      </View>
+    </View>
+  );
+};
+
+====================
+C:\Users\Flor\weather-app\src\componentes\controladores\ControladorDeClima.tsx:
+import { ContenedorDePantallaClima } from '../contenedores/ContenedorDePantallaClima';
+import { useClima } from '../../hooks/useClima';
+
+export const ControladorDeClima = () => {
+  const { clima, indiceDiaSeleccionado, onCambiarDia } = useClima();
+
+  return (
+    <ContenedorDePantallaClima
+      clima={clima}
+      indiceDiaSeleccionado={indiceDiaSeleccionado}
+      onCambiarDia={onCambiarDia}
+    />
+  );
+};
+
+====================
+C:\Users\Flor\weather-app\src\constantes\clima.ts:
+import { ClimaPorDia } from '@/src/tipos/clima';
+
+// mapeos de códigos de WeatherAPI a tipos de condición
+export const CODIGOS_CLIMA_SOLEADO = [1000];
+export const CODIGOS_CLIMA_PARCIALMENTE_NUBLADO = [1003];
+export const CODIGOS_CLIMA_NUBLADO = [1006, 1009];
+export const CODIGOS_CLIMA_NIEBLA = [1030, 1135, 1147];
+export const CODIGOS_CLIMA_LLUVIA = [1063, 1150, 1153, 1180, 1183, 1186, 1189, 1192, 1195];
+export const CODIGOS_CLIMA_TORMENTA = [1087, 1273, 1276];
+
+// para mockear, por si hay que testear solo componentes y no llamadas a la API
+
+export const DATOS_CLIMA: ClimaPorDia[] = [
+  {
+    ciudad: 'BUENOS AIRES',
+    condicion: 'Soleado',
+    codigoCondicion: 1000,
+    fecha: '2026-04-13',
+    temperatura: 24,
+    min: 18,
+    max: 26,
+    indicadores: [
+      { tipo: 'Humedad', valor: 60, unidad: '%' },
+      { tipo: 'Probabilidad de lluvia', valor: 10, unidad: '%' },
+      { tipo: 'Viento', valor: 3.2, unidad: 'm/s' },
+    ],
+  },
+  {
+    ciudad: 'BUENOS AIRES',
+    condicion: 'Parcialmente nublado',
+    codigoCondicion: 1003,
+    fecha: '2026-04-14',
+    min: 17,
+    max: 25,
+    indicadores: [
+      { tipo: 'Humedad', valor: 65, unidad: '%' },
+      { tipo: 'Probabilidad de lluvia', valor: 20, unidad: '%' },
+      { tipo: 'Viento', valor: 2.5, unidad: 'm/s' },
+    ],
+  },
+  {
+    ciudad: 'BUENOS AIRES',
+    condicion: 'Lluvia',
+    codigoCondicion: 1183,
+    fecha: '2026-04-15',
+    min: 16,
+    max: 22,
+    indicadores: [
+      { tipo: 'Humedad', valor: 80, unidad: '%' },
+      { tipo: 'Probabilidad de lluvia', valor: 75, unidad: '%' },
+      { tipo: 'Viento', valor: 4.1, unidad: 'm/s' },
+    ],
+  },
+];
+
+====================
+C:\Users\Flor\weather-app\src\constantes\ubicacion.ts:
+export const UBICACION_POR_DEFECTO = 'Ciudad Autónoma de Buenos Aires';
+
+====================
+C:\Users\Flor\weather-app\src\hooks\useClima.ts:
+import { useEffect, useState } from 'react';
+import { ClimaPorDia } from '../tipos/clima';
+import { obtenerClimaPorCiudad } from '../servicios/weatherApi';
+import { useUbicacionActual } from './useUbicacionActual';
+
+export const useClima = () => {
+  const [clima, setClima] = useState<ClimaPorDia[]>([]);
+  const [indiceDiaSeleccionado, setIndiceDiaSeleccionado] = useState(1);
+
+  const { obtenerUbicacionActual } = useUbicacionActual();
+
+  const cargarClima = async () => {
+    try {
+      const ubicacionActual = await obtenerUbicacionActual();
+
+      const nuevoClima = await obtenerClimaPorCiudad(ubicacionActual);
+
+      setClima(nuevoClima);
+      setIndiceDiaSeleccionado(1);
+    } catch (error) {
+      console.error('Error al cargar clima', error);
+    }
+  };
+
+  const handleCambiarDia = (nuevoIndice: number) => {
+    setIndiceDiaSeleccionado(nuevoIndice);
+  };
+
+  useEffect(() => {
+    cargarClima();
+  }, []);
+
+  return {
+    clima,
+    indiceDiaSeleccionado,
+    onCambiarDia: handleCambiarDia,
+  };
+};
+
+====================
+C:\Users\Flor\weather-app\src\hooks\useUbicacionActual.ts:
+import * as Location from 'expo-location';
+import { UBICACION_POR_DEFECTO } from '../constantes/ubicacion';
+
+export const useUbicacionActual = () => {
+  const obtenerUbicacionActual = async (): Promise<string> => {
+    try {
+      const { status } = await Location.requestForegroundPermissionsAsync();
+
+      const tienePermisoDeUbicacion = status === 'granted';
+
+      if (!tienePermisoDeUbicacion) {
+        return UBICACION_POR_DEFECTO;
+      }
+
+      const posicionActual = await Location.getCurrentPositionAsync({});
+
+      const { latitude, longitude } = posicionActual.coords;
+      return `${latitude},${longitude}`;
+    } catch {
+      return UBICACION_POR_DEFECTO;
+    }
+  };
+
+  return { obtenerUbicacionActual };
+};
+
+====================
+C:\Users\Flor\weather-app\src\servicios\weatherApi.ts:
+import { ClimaPorDia } from '../tipos/clima';
+import Constants from 'expo-constants';
+import {
+  WeatherApiForecastResponse,
+  WeatherApiHistoryResponse,
+  WeatherApiForecastDay,
+} from '../tipos/weatherApi';
+
+const API_KEY =
+  Constants.expoConfig?.extra?.weatherApiKey || process.env.EXPO_PUBLIC_WEATHER_API_KEY;
+
+const formatearFecha = (date: Date) => {
+  return date.toISOString().split('T')[0];
+};
+
+const kmhAMetrosPorSegundo = (kmh: number) => kmh / 3.6;
+
+export const obtenerClimaPorCiudad = async (ciudad: string): Promise<ClimaPorDia[]> => {
+  try {
+    const hoy = new Date();
+    const ayerDate = new Date();
+    ayerDate.setDate(hoy.getDate() - 1);
+
+    const ayerStr = formatearFecha(ayerDate);
+
+    const resAyer = await fetch(
+      `https://api.weatherapi.com/v1/history.json?key=${API_KEY}&q=${ciudad}&dt=${ayerStr}&lang=es`
+    );
+    const dataAyer: WeatherApiHistoryResponse = await resAyer.json();
+
+    const resForecast = await fetch(
+      `https://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${ciudad}&days=2&lang=es`
+    );
+    const dataForecast: WeatherApiForecastResponse = await resForecast.json();
+
+    const nombreCiudad = dataForecast.location.name;
+
+    const diaAyer = dataAyer.forecast.forecastday[0];
+
+    const climaAyer: ClimaPorDia = {
+      ciudad: nombreCiudad,
+      condicion: diaAyer.day.condition.text,
+      codigoCondicion: diaAyer.day.condition.code,
+      fecha: diaAyer.date,
+      temperatura: undefined,
+      min: diaAyer.day.mintemp_c,
+      max: diaAyer.day.maxtemp_c,
+      indicadores: [
+        {
+          tipo: 'Humedad',
+          valor: diaAyer.day.avghumidity,
+          unidad: '%',
+        },
+        {
+          tipo: 'Precipitación',
+          valor: diaAyer.day.totalprecip_mm,
+          unidad: 'mm',
+        },
+        {
+          tipo: 'Viento',
+          valor: kmhAMetrosPorSegundo(diaAyer.day.maxwind_kph),
+          unidad: 'm/s',
+        },
+      ],
+    };
+
+    const horaActual = new Date().getHours();
+
+    const climaForecast: ClimaPorDia[] = dataForecast.forecast.forecastday.map(
+      (dia: WeatherApiForecastDay, index: number) => {
+        const esHoy = index === 0;
+
+        let probabilidadLluvia = dia.day.daily_chance_of_rain;
+
+        if (esHoy) {
+          const horas = dia.hour;
+
+          if (horas && horas[horaActual]) {
+            probabilidadLluvia = horas[horaActual].chance_of_rain;
+          }
+        }
+
+        return {
+          ciudad: nombreCiudad,
+          codigoCondicion: esHoy ? dataForecast.current.condition.code : dia.day.condition.code,
+
+          condicion: esHoy ? dataForecast.current.condition.text : dia.day.condition.text,
+          fecha: dia.date,
+          temperatura: esHoy ? dataForecast.current.temp_c : undefined,
+          min: dia.day.mintemp_c,
+          max: esHoy ? Math.max(dia.day.maxtemp_c, dataForecast.current.temp_c) : dia.day.maxtemp_c,
+
+          indicadores: [
+            {
+              tipo: 'Humedad',
+              valor: esHoy ? dataForecast.current.humidity : dia.day.avghumidity,
+              unidad: '%',
+            },
+            {
+              tipo: 'Probabilidad de lluvia',
+              valor: probabilidadLluvia,
+              unidad: '%',
+            },
+            {
+              tipo: 'Viento',
+              valor: kmhAMetrosPorSegundo(
+                esHoy ? dataForecast.current.wind_kph : dia.day.maxwind_kph
+              ),
+              unidad: 'm/s',
+            },
+          ],
+        };
+      }
+    );
+
+    return [climaAyer, ...climaForecast];
+  } catch (error) {
+    console.error('Error al obtener datos de clima desde API:', error);
+    throw error;
+  }
+};
+
+====================
+C:\Users\Flor\weather-app\src\tipos\clima.ts:
+export type Indicador = {
+  tipo: string;
+  valor: number;
+  unidad: string;
+};
+
+export type ClimaPorDia = {
+  ciudad: string;
+  condicion: string;
+  codigoCondicion: number;
+  fecha: string;
+  temperatura?: number;
+  min: number;
+  max: number;
+  indicadores?: Indicador[];
+};
+
+====================
+C:\Users\Flor\weather-app\src\tipos\weatherApi.ts:
+export type WeatherApiForecastDay = {
+  date: string;
+  day: {
+    condition: {
+      text: string;
+      code: number;
+    };
+    mintemp_c: number;
+    maxtemp_c: number;
+    avghumidity: number;
+    daily_chance_of_rain: number;
+    totalprecip_mm: number;
+    maxwind_kph: number;
+  };
+  hour: {
+    chance_of_rain: number;
+  }[];
+};
+
+export type WeatherApiForecastResponse = {
+  location: {
+    name: string;
+  };
+  current: {
+    temp_c: number;
+    humidity: number;
+    wind_kph: number;
+    condition: {
+      text: string;
+      code: number;
+    };
+  };
+  forecast: {
+    forecastday: WeatherApiForecastDay[];
+  };
+};
+
+export type WeatherApiHistoryResponse = {
+  forecast: {
+    forecastday: WeatherApiForecastDay[];
+  };
+};
+
+====================
+C:\Users\Flor\weather-app\__tests__\example.test.tsx:
+import { render } from '@testing-library/react-native';
+
+import HomeScreen from '@/example/example';
+
+describe('<HomeScreen />', () => {
+  test('Text renders correctly on HomeScreen', () => {
+    const { getByText } = render(<HomeScreen />);
+
+    // getByText('Welcome!');
+    expect(getByText('Welcome!')).toBeOnTheScreen();
+  });
+});
+
+====================
+C:\Users\Flor\weather-app\__tests__\hooks\useClima.test.ts:
+import { renderHook, waitFor, act } from '@testing-library/react-native';
+import { useClima } from '@/src/hooks/useClima';
+
+jest.mock('@/src/hooks/useUbicacionActual', () => ({
+  useUbicacionActual: () => ({
+    obtenerUbicacionActual: jest.fn().mockResolvedValue('Buenos Aires'),
+  }),
+}));
+
+jest.mock('@/src/servicios/weatherApi', () => ({
+  obtenerClimaPorCiudad: jest.fn(),
+}));
+
+import { obtenerClimaPorCiudad } from '@/src/servicios/weatherApi';
+
+describe('useClima', () => {
+  beforeAll(() => {
+    jest.spyOn(console, 'log').mockImplementation(() => {});
+    jest.spyOn(console, 'error').mockImplementation(() => {});
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
+  test('carga clima correctamente', async () => {
+    const mockClima = [{ ciudad: 'Buenos Aires', fecha: '2026-04-14', min: 10, max: 20 }];
+
+    (obtenerClimaPorCiudad as jest.Mock).mockResolvedValue(mockClima);
+
+    const { result } = renderHook(() => useClima());
+
+    await waitFor(() => {
+      expect(result.current.clima.length).toBeGreaterThan(0);
+    });
+
+    expect(obtenerClimaPorCiudad).toHaveBeenCalledWith('Buenos Aires');
+    expect(result.current.clima).toEqual(mockClima);
+    expect(result.current.indiceDiaSeleccionado).toBe(1);
+  });
+
+  test('cambia el día seleccionado', async () => {
+    const mockClima = [
+      { ciudad: 'Buenos Aires', fecha: '2026-04-14', min: 10, max: 20 },
+      { ciudad: 'Buenos Aires', fecha: '2026-04-15', min: 12, max: 22 },
+    ];
+
+    (obtenerClimaPorCiudad as jest.Mock).mockResolvedValue(mockClima);
+
+    const { result } = renderHook(() => useClima());
+
+    await waitFor(() => {
+      expect(result.current.clima.length).toBe(2);
+    });
+
+    act(() => {
+      result.current.onCambiarDia(0);
+    });
+
+    expect(result.current.indiceDiaSeleccionado).toBe(0);
+  });
+
+  test('maneja error al cargar clima', async () => {
+    (obtenerClimaPorCiudad as jest.Mock).mockRejectedValue(new Error('API error'));
+
+    const { result } = renderHook(() => useClima());
+
+    await waitFor(() => {
+      expect(result.current.clima).toEqual([]);
+    });
+
+    expect(obtenerClimaPorCiudad).toHaveBeenCalled();
+  });
+});
+
+====================
+C:\Users\Flor\weather-app\__tests__\hooks\useUbicacionActual.test.ts:
+import { renderHook } from '@testing-library/react-native';
+import { useUbicacionActual } from '@/src/hooks/useUbicacionActual';
+import * as Location from 'expo-location';
+
+jest.mock('expo-location');
+
+describe('useUbicacionActual', () => {
+  test('devuelve coordenadas si hay permiso', async () => {
+    (Location.requestForegroundPermissionsAsync as jest.Mock).mockResolvedValue({
+      status: 'granted',
+    });
+
+    (Location.getCurrentPositionAsync as jest.Mock).mockResolvedValue({
+      coords: {
+        latitude: -34.7,
+        longitude: -58.4,
+      },
+    });
+
+    const { result } = renderHook(() => useUbicacionActual());
+
+    const ubicacion = await result.current.obtenerUbicacionActual();
+
+    expect(ubicacion).toBe('-34.7,-58.4');
+  });
+
+  test('usa fallback si no hay permiso', async () => {
+    (Location.requestForegroundPermissionsAsync as jest.Mock).mockResolvedValue({
+      status: 'denied',
+    });
+
+    const { result } = renderHook(() => useUbicacionActual());
+
+    const ubicacion = await result.current.obtenerUbicacionActual();
+
+    expect(ubicacion).toBe('Ciudad Autónoma de Buenos Aires');
+  });
+});
