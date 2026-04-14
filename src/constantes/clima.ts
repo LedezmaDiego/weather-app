@@ -1,5 +1,14 @@
 import { ClimaPorDia } from '@/src/tipos/clima';
 
+// Mapeos de códigos de WeatherAPI a tipos de condición
+// Fuente: https://www.weatherapi.com/docs/weather_codes.asp
+export const CODIGOS_CLIMA_SOLEADO = [1000];
+export const CODIGOS_CLIMA_PARCIALMENTE_NUBLADO = [1003];
+export const CODIGOS_CLIMA_NUBLADO = [1006, 1009];
+export const CODIGOS_CLIMA_NIEBLA = [1030, 1135, 1147];
+export const CODIGOS_CLIMA_LLUVIA = [1063, 1150, 1153, 1180, 1183, 1186, 1189, 1192, 1195];
+export const CODIGOS_CLIMA_TORMENTA = [1087, 1273, 1276];
+
 // para mockear, por si hay que testear solo componentes y no llamadas a la API
 
 export const DATOS_CLIMA: ClimaPorDia[] = [

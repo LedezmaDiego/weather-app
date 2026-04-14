@@ -3,6 +3,14 @@ import { Droplets, Flag, CloudRain } from 'lucide-react-native';
 import { IconoDeClima } from './IconoDeClima';
 import { NavegacionDeDias } from './NavegacionDeDias';
 import { ClimaPorDia } from '@/src/tipos/clima';
+import {
+  CODIGOS_CLIMA_SOLEADO,
+  CODIGOS_CLIMA_PARCIALMENTE_NUBLADO,
+  CODIGOS_CLIMA_NUBLADO,
+  CODIGOS_CLIMA_NIEBLA,
+  CODIGOS_CLIMA_LLUVIA,
+  CODIGOS_CLIMA_TORMENTA,
+} from '@/src/constantes/clima';
 
 type Props = {
   clima: ClimaPorDia[];
@@ -10,14 +18,13 @@ type Props = {
   onCambiarDia: (nuevoIndice: number) => void;
 };
 
-const mapCodigoAString = (codigo: number): string => {
-  if (codigo === 1000) return 'sunny';
-  if ([1003].includes(codigo)) return 'partly-cloudy';
-  if ([1006, 1009].includes(codigo)) return 'cloudy';
-  if ([1030, 1135, 1147].includes(codigo)) return 'fog';
-  if ([1063, 1150, 1153, 1180, 1183, 1186, 1189, 1192, 1195].includes(codigo)) return 'rain';
-  if ([1066, 1210, 1213, 1216, 1219].includes(codigo)) return 'snow';
-  if ([1087, 1273, 1276].includes(codigo)) return 'storm';
+const mapearCodigoACondicion = (codigo: number): string => {
+  if (CODIGOS_CLIMA_SOLEADO.includes(codigo)) return 'sunny';
+  if (CODIGOS_CLIMA_PARCIALMENTE_NUBLADO.includes(codigo)) return 'partly-cloudy';
+  if (CODIGOS_CLIMA_NUBLADO.includes(codigo)) return 'cloudy';
+  if (CODIGOS_CLIMA_NIEBLA.includes(codigo)) return 'fog';
+  if (CODIGOS_CLIMA_LLUVIA.includes(codigo)) return 'rain';
+  if (CODIGOS_CLIMA_TORMENTA.includes(codigo)) return 'storm';
 
   return 'unknown';
 };
@@ -46,7 +53,7 @@ export const PantallaDeClima = ({ clima, indiceDiaSeleccionado, onCambiarDia }: 
     return null;
   };
 
-  const condition = mapCodigoAString(diaSeleccionado.codigoCondicion);
+  const condition = mapearCodigoACondicion(diaSeleccionado.codigoCondicion);
 
   return (
     <View testID="screen-weather" className="flex-1 bg-white">

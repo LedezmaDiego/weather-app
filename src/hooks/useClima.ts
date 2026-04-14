@@ -13,8 +13,6 @@ export const useClima = () => {
     try {
       const ubicacionActual = await obtenerUbicacionActual();
 
-      console.log('Ubicación papu', ubicacionActual);
-
       const nuevoClima = await obtenerClimaPorCiudad(ubicacionActual);
 
       setClima(nuevoClima);
