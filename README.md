@@ -7,7 +7,7 @@ Aplicación mobile desarrollada con Expo + React Native que muestra el clima act
 ## Descargas
 
 - APK (Android):
-  https://github.com/LedezmaDiego/weather-app/releases/download/v1.0.0/weather-app.apk
+  https://github.com/LedezmaDiego/weather-app/releases/download/v1.0.0/WeatherApp-v1.0.0.apk
 
 ---
 
