@@ -2,6 +2,8 @@ export default {
   expo: {
     name: 'weather-app',
     slug: 'weather-app',
+    scheme: 'weatherapp',
+    userInterfaceStyle: 'automatic',
 
     android: {
       package: 'com.ledezmadiego.weatherapp',
