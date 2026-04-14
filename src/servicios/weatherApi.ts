@@ -27,10 +27,12 @@ export const obtenerClimaPorCiudad = async (ciudad: string): Promise<ClimaPorDia
     );
     const dataForecast = await resForecast.json();
 
+    const nombreCiudad = dataForecast.location.name;
+
     const diaAyer = dataAyer.forecast.forecastday[0];
 
     const climaAyer: ClimaPorDia = {
-      ciudad: dataAyer.location.name,
+      ciudad: nombreCiudad,
       condicion: diaAyer.day.condition.text,
       codigoCondicion: diaAyer.day.condition.code,
       fecha: diaAyer.date,
@@ -61,7 +63,7 @@ export const obtenerClimaPorCiudad = async (ciudad: string): Promise<ClimaPorDia
         const esHoy = index === 0;
 
         return {
-          ciudad: dataForecast.location.name,
+          ciudad: nombreCiudad,
           condicion: dia.day.condition.text,
           codigoCondicion: dia.day.condition.code,
           fecha: dia.date,

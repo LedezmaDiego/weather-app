@@ -32,6 +32,10 @@ const mapearCodigoACondicion = (codigo: number): string => {
 export const PantallaDeClima = ({ clima, indiceDiaSeleccionado, onCambiarDia }: Props) => {
   const diaSeleccionado = clima[indiceDiaSeleccionado];
 
+  console.log('RENDER -> índice:', indiceDiaSeleccionado);
+  console.log('RENDER -> fecha:', diaSeleccionado?.fecha);
+  console.log('RENDER -> ciudad:', diaSeleccionado?.ciudad);
+  console.log('RENDER -> objeto completo:', diaSeleccionado);
   if (!diaSeleccionado) {
     return (
       <View className="flex-1 items-center justify-center">

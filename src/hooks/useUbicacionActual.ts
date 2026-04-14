@@ -15,7 +15,6 @@ export const useUbicacionActual = () => {
       const posicionActual = await Location.getCurrentPositionAsync({});
 
       const { latitude, longitude } = posicionActual.coords;
-
       return `${latitude},${longitude}`;
     } catch {
       return UBICACION_POR_DEFECTO;
