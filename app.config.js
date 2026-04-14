@@ -1,5 +1,12 @@
 export default {
   expo: {
+    name: 'weather-app',
+    slug: 'weather-app',
+
+    android: {
+      package: 'com.ledezmadiego.weatherapp',
+    },
+
     extra: {
       weatherApiKey: process.env.EXPO_PUBLIC_WEATHER_API_KEY,
       eas: {
