@@ -1,4 +1,3 @@
-````md
 # Weather App
 
 Aplicación mobile desarrollada con Expo + React Native que muestra el clima actual y próximos días según la ubicación del usuario.
@@ -35,7 +34,6 @@ Aplicación mobile desarrollada con Expo + React Native que muestra el clima act
 git clone https://github.com/LedezmaDiego/weather-app.git
 cd weather-app
 ```
-````
 
 3. Crear archivo `.env`:
 
@@ -100,5 +98,3 @@ Ciudad Autónoma de Buenos Aires
 - El modo desarrollo requiere API Key
 - Requiere conexión a internet
 - Los cambios se reflejan en tiempo real
-
----
