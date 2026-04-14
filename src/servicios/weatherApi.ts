@@ -1,5 +1,10 @@
 import { ClimaPorDia } from '../tipos/clima';
 import Constants from 'expo-constants';
+import {
+  WeatherApiForecastResponse,
+  WeatherApiHistoryResponse,
+  WeatherApiForecastDay,
+} from '../tipos/weatherApi';
 
 const API_KEY =
   Constants.expoConfig?.extra?.weatherApiKey || process.env.EXPO_PUBLIC_WEATHER_API_KEY;
@@ -21,12 +26,12 @@ export const obtenerClimaPorCiudad = async (ciudad: string): Promise<ClimaPorDia
     const resAyer = await fetch(
       `https://api.weatherapi.com/v1/history.json?key=${API_KEY}&q=${ciudad}&dt=${ayerStr}&lang=es`
     );
-    const dataAyer = await resAyer.json();
+    const dataAyer: WeatherApiHistoryResponse = await resAyer.json();
 
     const resForecast = await fetch(
       `https://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${ciudad}&days=2&lang=es`
     );
-    const dataForecast = await resForecast.json();
+    const dataForecast: WeatherApiForecastResponse = await resForecast.json();
 
     const nombreCiudad = dataForecast.location.name;
 
@@ -62,7 +67,7 @@ export const obtenerClimaPorCiudad = async (ciudad: string): Promise<ClimaPorDia
     const horaActual = new Date().getHours();
 
     const climaForecast: ClimaPorDia[] = dataForecast.forecast.forecastday.map(
-      (dia: any, index: number) => {
+      (dia: WeatherApiForecastDay, index: number) => {
         const esHoy = index === 0;
 
         let probabilidadLluvia = dia.day.daily_chance_of_rain;
@@ -77,8 +82,9 @@ export const obtenerClimaPorCiudad = async (ciudad: string): Promise<ClimaPorDia
 
         return {
           ciudad: nombreCiudad,
-          condicion: dia.day.condition.text,
-          codigoCondicion: dia.day.condition.code,
+          codigoCondicion: esHoy ? dataForecast.current.condition.code : dia.day.condition.code,
+
+          condicion: esHoy ? dataForecast.current.condition.text : dia.day.condition.text,
           fecha: dia.date,
           temperatura: esHoy ? dataForecast.current.temp_c : undefined,
           min: dia.day.mintemp_c,
