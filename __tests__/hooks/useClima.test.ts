@@ -34,7 +34,7 @@ describe('useClima', () => {
       expect(result.current.clima.length).toBeGreaterThan(0);
     });
 
-    expect(obtenerClimaPorCiudad).toHaveBeenCalledWith('Buenos Aires'); // 🔥 importante
+    expect(obtenerClimaPorCiudad).toHaveBeenCalledWith('Buenos Aires'); 
     expect(result.current.clima).toEqual(mockClima);
     expect(result.current.indiceDiaSeleccionado).toBe(1);
   });
