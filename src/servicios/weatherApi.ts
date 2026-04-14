@@ -1,12 +1,4 @@
 import { ClimaPorDia } from '../tipos/clima';
-import {
-  CODIGOS_CLIMA_SOLEADO,
-  CODIGOS_CLIMA_PARCIALMENTE_NUBLADO,
-  CODIGOS_CLIMA_NUBLADO,
-  CODIGOS_CLIMA_NIEBLA,
-  CODIGOS_CLIMA_LLUVIA,
-  CODIGOS_CLIMA_TORMENTA,
-} from '../constantes/clima';
 
 //  use dotenv
 const API_KEY = process.env.EXPO_PUBLIC_WEATHER_API_KEY;
@@ -16,16 +8,6 @@ const formatearFecha = (date: Date) => {
 };
 
 const kmhAMetrosPorSegundo = (kmh: number) => kmh / 3.6;
-
-const mapearCodigoACondicion = (codigo: number): string => {
-  if (CODIGOS_CLIMA_SOLEADO.includes(codigo)) return 'sunny';
-  if (CODIGOS_CLIMA_PARCIALMENTE_NUBLADO.includes(codigo)) return 'partly-cloudy';
-  if (CODIGOS_CLIMA_NUBLADO.includes(codigo)) return 'cloudy';
-  if (CODIGOS_CLIMA_NIEBLA.includes(codigo)) return 'fog';
-  if (CODIGOS_CLIMA_LLUVIA.includes(codigo)) return 'rain';
-  if (CODIGOS_CLIMA_TORMENTA.includes(codigo)) return 'storm';
-  return 'unknown';
-};
 
 export const obtenerClimaPorCiudad = async (ciudad: string): Promise<ClimaPorDia[]> => {
   try {
