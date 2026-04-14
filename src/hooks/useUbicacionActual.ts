@@ -9,14 +9,22 @@ export const useUbicacionActual = () => {
       const tienePermisoDeUbicacion = status === 'granted';
 
       if (!tienePermisoDeUbicacion) {
+        console.log('Sin permisos, usando fallback:', UBICACION_POR_DEFECTO);
         return UBICACION_POR_DEFECTO;
       }
 
-      const posicionActual = await Location.getCurrentPositionAsync({});
+      const posicionActual = await Location.getCurrentPositionAsync({
+        accuracy: Location.Accuracy.High,
+      });
 
       const { latitude, longitude } = posicionActual.coords;
-      return `${latitude},${longitude}`;
-    } catch {
+
+      const ubicacion = `${latitude},${longitude}`;
+
+      return ubicacion;
+    } catch (error) {
+      console.log('Error obteniendo ubicación:', error);
+      console.log('Usando fallback:', UBICACION_POR_DEFECTO);
       return UBICACION_POR_DEFECTO;
     }
   };
