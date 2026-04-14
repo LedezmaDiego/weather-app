@@ -1,6 +1,6 @@
 import { ClimaPorDia } from '@/src/tipos/clima';
 
-// para mockear por si hay que testear solo componentes y no necesariamente llamadas a la API
+// para mockear, por si hay que testear solo componentes y no llamadas a la API
 
 export const DATOS_CLIMA: ClimaPorDia[] = [
   {
