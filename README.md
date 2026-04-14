@@ -1,73 +1,104 @@
-# Minimal Template
+````md
+# Weather App
 
-This is a [React Native](https://reactnative.dev/) project built with [Expo](https://expo.dev/) and [React Native Reusables](https://reactnativereusables.com).
-
-It was initialized using the following command, then the `Minimal (Nativewind)` template was selected when prompted:
-
-```bash
-npx @react-native-reusables/cli@latest init
-```
-
-## Getting Started
-
-To run the development server:
-
-```bash
-    npm run dev
-    # or
-    yarn dev
-    # or
-    pnpm dev
-    # or
-    bun dev
-```
-
-This will start the Expo Dev Server. Open the app in:
-
-- **iOS**: press `i` to launch in the iOS simulator _(Mac only)_
-- **Android**: press `a` to launch in the Android emulator
-- **Web**: press `w` to run in a browser
-
-You can also scan the QR code using the [Expo Go](https://expo.dev/go) app on your device. This project fully supports running in Expo Go for quick testing on physical devices.
-
-## Adding components
-
-You can add more reusable components using the CLI:
-
-```bash
-npx react-native-reusables/cli@latest add [...components]
-```
-
-> e.g. `npx react-native-reusables/cli@latest add input textarea`
-
-If you don't specify any component names, you'll be prompted to select which components to add interactively. Use the `--all` flag to install all available components at once.
-
-## Project Features
-
-- ⚛️ Built with [Expo Router](https://expo.dev/router)
-- 🎨 Styled with [Tailwind CSS](https://tailwindcss.com/) via [Nativewind](https://www.nativewind.dev/)
-- 📦 UI powered by [React Native Reusables](https://github.com/founded-labs/react-native-reusables)
-- 🚀 New Architecture enabled
-- 🔥 Edge to Edge enabled
-- 📱 Runs on iOS, Android, and Web
-
-## Learn More
-
-To dive deeper into the technologies used:
-
-- [React Native Docs](https://reactnative.dev/docs/getting-started)
-- [Expo Docs](https://docs.expo.dev/)
-- [Nativewind Docs](https://www.nativewind.dev/)
-- [React Native Reusables](https://reactnativereusables.com)
-
-## Deploy with EAS
-
-The easiest way to deploy your app is with [Expo Application Services (EAS)](https://expo.dev/eas).
-
-- [EAS Build](https://docs.expo.dev/build/introduction/)
-- [EAS Updates](https://docs.expo.dev/eas-update/introduction/)
-- [EAS Submit](https://docs.expo.dev/submit/introduction/)
+Aplicación mobile desarrollada con Expo + React Native que muestra el clima actual y próximos días según la ubicación del usuario.
 
 ---
 
-If you enjoy using React Native Reusables, please consider giving it a ⭐ on [GitHub](https://github.com/founded-labs/react-native-reusables). Your support means a lot!
+## Descargas
+
+- APK (Android):
+  https://github.com/LedezmaDiego/weather-app/releases/download/v1.0.0/weather-app.apk
+
+---
+
+## Instalación en dispositivo (Android)
+
+### Opción 1 — Instalar APK (recomendado para usuarios)
+
+1. Descargar la APK desde la sección "Descargas"
+2. Transferir el archivo al dispositivo
+3. Abrir el archivo `.apk`
+4. Aceptar la instalación desde orígenes desconocidos si es necesario
+5. Instalar la aplicación
+
+---
+
+### Opción 2 — Usar Expo Go (modo desarrollo)
+
+> Requiere conocimientos técnicos y API Key
+
+1. Instalar Expo Go en el dispositivo
+2. Clonar el repositorio:
+
+```bash
+git clone https://github.com/LedezmaDiego/weather-app.git
+cd weather-app
+```
+````
+
+3. Crear archivo `.env`:
+
+La aplicación utiliza WeatherAPI
+Para desarrollo:
+
+Crear una cuenta en [https://www.weatherapi.com/](https://www.weatherapi.com/)
+Obtener una API Key
+Crear archivo `.env` en el proyecto:
+
+```bash
+EXPO_PUBLIC_WEATHER_API_KEY=tu_api_key
+```
+
+> ⚠️ La APK ya incluye una API Key funcional, no es necesario configurarla para uso normal
+
+4. Instalar dependencias:
+
+```bash
+bun install
+```
+
+5. Iniciar el servidor:
+
+```bash
+bun run dev
+```
+
+6. Escanear el QR con Expo Go
+
+---
+
+## Funcionalidades
+
+- Obtención de ubicación actual (GPS)
+- Clima del día actual
+- Día anterior
+- Pronóstico de próximos días
+- Navegación entre días
+- Indicadores:
+  - Humedad
+  - Probabilidad de lluvia
+  - Viento
+
+---
+
+## Ubicación
+
+- La app solicita permisos de ubicación
+- Si el usuario no los concede, usa:
+
+```bash
+Ciudad Autónoma de Buenos Aires
+```
+
+---
+
+## Notas importantes
+
+- Funciona con Expo Go
+- La APK no requiere configuración adicional
+- El modo desarrollo requiere API Key
+- Requiere conexión a internet
+- Los cambios se reflejan en tiempo real
+
+---
