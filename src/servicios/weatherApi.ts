@@ -1,7 +1,8 @@
 import { ClimaPorDia } from '../tipos/clima';
+import Constants from 'expo-constants';
 
-//  use dotenv
-const API_KEY = process.env.EXPO_PUBLIC_WEATHER_API_KEY;
+const API_KEY =
+  Constants.expoConfig?.extra?.weatherApiKey || process.env.EXPO_PUBLIC_WEATHER_API_KEY;
 
 const formatearFecha = (date: Date) => {
   return date.toISOString().split('T')[0];
