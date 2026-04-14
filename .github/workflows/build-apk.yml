@@ -10,9 +10,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout repo
+        uses: actions/checkout@v3
 
-      - uses: actions/setup-node@v3
+      - name: Setup Node
+        uses: actions/setup-node@v3
         with:
           node-version: 20.x
 
@@ -22,7 +24,7 @@ jobs:
       - name: Add Bun to PATH
         run: echo "$HOME/.bun/bin" >> $GITHUB_PATH
 
-      - name: Install deps
+      - name: Install dependencies
         run: bun install
 
       - name: Create .env
@@ -32,7 +34,10 @@ jobs:
         run: npx expo prebuild --platform android
 
       - name: Build APK
-        run: cd android && ./gradlew assembleRelease
+        run: |
+          cd android
+          chmod +x gradlew
+          ./gradlew assembleRelease
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
