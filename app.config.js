@@ -9,6 +9,10 @@ export default {
       package: 'com.ledezmadiego.weatherapp',
     },
 
+    ios: {
+      bundleIdentifier: 'com.ledezmadiego.weatherapp',
+    },
+
     extra: {
       weatherApiKey: process.env.EXPO_PUBLIC_WEATHER_API_KEY,
       eas: {
