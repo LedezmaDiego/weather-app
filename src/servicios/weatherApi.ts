@@ -5,7 +5,7 @@ const API_KEY = process.env.EXPO_PUBLIC_WEATHER_API_KEY;
 
 const formatearFecha = (date: Date) => {
   return date.toISOString().split('T')[0];
-};
+}; 
 
 const kmhAMetrosPorSegundo = (kmh: number) => kmh / 3.6;
 
