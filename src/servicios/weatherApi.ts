@@ -59,9 +59,21 @@ export const obtenerClimaPorCiudad = async (ciudad: string): Promise<ClimaPorDia
       ],
     };
 
+    const horaActual = new Date().getHours();
+
     const climaForecast: ClimaPorDia[] = dataForecast.forecast.forecastday.map(
       (dia: any, index: number) => {
         const esHoy = index === 0;
+
+        let probabilidadLluvia = dia.day.daily_chance_of_rain;
+
+        if (esHoy) {
+          const horas = dia.hour;
+
+          if (horas && horas[horaActual]) {
+            probabilidadLluvia = horas[horaActual].chance_of_rain;
+          }
+        }
 
         return {
           ciudad: nombreCiudad,
@@ -80,7 +92,7 @@ export const obtenerClimaPorCiudad = async (ciudad: string): Promise<ClimaPorDia
             },
             {
               tipo: 'Probabilidad de lluvia',
-              valor: dia.day.daily_chance_of_rain,
+              valor: probabilidadLluvia,
               unidad: '%',
             },
             {
