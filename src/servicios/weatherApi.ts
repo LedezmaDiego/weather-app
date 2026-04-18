@@ -15,7 +15,7 @@ const formatearFecha = (date: Date) => {
 
 const kmhAMetrosPorSegundo = (kmh: number) => kmh / 3.6;
 
-export const obtenerClimaPorCiudad = async (ciudad: string): Promise<ClimaPorDia[]> => {
+export const obtenerClimaPorCiudad = async (ubicacion: string): Promise<ClimaPorDia[]> => {
   try {
     const hoy = new Date();
     const ayerDate = new Date();
@@ -24,12 +24,12 @@ export const obtenerClimaPorCiudad = async (ciudad: string): Promise<ClimaPorDia
     const ayerStr = formatearFecha(ayerDate);
 
     const resAyer = await fetch(
-      `https://api.weatherapi.com/v1/history.json?key=${API_KEY}&q=${ciudad}&dt=${ayerStr}&lang=es`
+      `https://api.weatherapi.com/v1/history.json?key=${API_KEY}&q=${ubicacion}&dt=${ayerStr}&lang=es`
     );
     const dataAyer: WeatherApiHistoryResponse = await resAyer.json();
 
     const resForecast = await fetch(
-      `https://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${ciudad}&days=2&lang=es`
+      `https://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${ubicacion}&days=2&lang=es`
     );
     const dataForecast: WeatherApiForecastResponse = await resForecast.json();
 
