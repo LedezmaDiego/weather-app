@@ -2,15 +2,56 @@ export default {
   expo: {
     name: 'weather-app',
     slug: 'weather-app',
-    scheme: 'weatherapp',
+    version: '1.0.0',
+    orientation: 'portrait',
+    scheme: 'weather-app',
     userInterfaceStyle: 'automatic',
+
+    icon: './assets/images/icon.png',
+
+    splash: {
+      image: './assets/images/splash.png',
+      resizeMode: 'contain',
+      backgroundColor: '#ffffff',
+    },
+
+    assetBundlePatterns: ['**/*'],
+
+    ios: {
+      supportsTablet: true,
+      bundleIdentifier: 'com.ledezmadiego.weatherapp',
+    },
 
     android: {
       package: 'com.ledezmadiego.weatherapp',
+      adaptiveIcon: {
+        foregroundImage: './assets/images/adaptive-icon.png',
+        backgroundColor: '#ffffff',
+      },
+      permissions: [
+        'android.permission.ACCESS_COARSE_LOCATION',
+        'android.permission.ACCESS_FINE_LOCATION',
+      ],
     },
 
-    ios: {
-      bundleIdentifier: 'com.ledezmadiego.weatherapp',
+    web: {
+      bundler: 'metro',
+      output: 'static',
+      favicon: './assets/images/favicon.png',
+    },
+
+    plugins: [
+      'expo-router',
+      [
+        'expo-location',
+        {
+          locationAlwaysAndWhenInUsePermission: 'Permitir que $(PRODUCT_NAME) use tu localización.',
+        },
+      ],
+    ],
+
+    experiments: {
+      typedRoutes: true,
     },
 
     extra: {
