@@ -9,7 +9,6 @@ export const CODIGOS_CLIMA_LLUVIA = [1063, 1150, 1153, 1180, 1183, 1186, 1189, 1
 export const CODIGOS_CLIMA_TORMENTA = [1087, 1273, 1276];
 
 // para mockear, por si hay que testear solo componentes y no llamadas a la API
-
 export const DATOS_CLIMA: ClimaPorDia[] = [
   {
     ciudad: 'BUENOS AIRES',

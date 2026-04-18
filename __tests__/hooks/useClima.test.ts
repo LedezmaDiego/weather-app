@@ -3,19 +3,26 @@ import { useClima } from '@/src/hooks/useClima';
 
 jest.mock('@/src/hooks/useUbicacionActual', () => ({
   useUbicacionActual: () => ({
-    obtenerUbicacionActual: jest.fn().mockResolvedValue('Buenos Aires'),
+    obtenerUbicacionActual: jest.fn().mockResolvedValue({
+      lat: -34.6,
+      lon: -58.4,
+      permiso: true,
+    }),
   }),
 }));
 
-jest.mock('@/src/servicios/weatherApi', () => ({
-  obtenerClimaPorCiudad: jest.fn(),
+jest.mock('@/src/servicios/geocodingApi', () => ({
+  obtenerNombreUbicacion: jest.fn().mockResolvedValue('Villa Celina, CABA'),
 }));
 
-import { obtenerClimaPorCiudad } from '@/src/servicios/weatherApi';
+jest.mock('@/src/servicios/weatherApi', () => ({
+  obtenerClimaPorUbicacion: jest.fn(),
+}));
+
+import { obtenerClimaPorUbicacion } from '@/src/servicios/weatherApi';
 
 describe('useClima', () => {
   beforeAll(() => {
-    jest.spyOn(console, 'log').mockImplementation(() => {});
     jest.spyOn(console, 'error').mockImplementation(() => {});
   });
 
@@ -24,9 +31,27 @@ describe('useClima', () => {
   });
 
   test('carga clima correctamente', async () => {
-    const mockClima = [{ ciudad: 'Buenos Aires', fecha: '2026-04-14', min: 10, max: 20 }];
+    const mockClima = [
+      {
+        ciudad: 'X',
+        fecha: '2026-04-14',
+        min: 10,
+        max: 20,
+        codigoCondicion: 1000,
+      },
+      {
+        ciudad: 'X',
+        fecha: '2026-04-15',
+        min: 12,
+        max: 22,
+        codigoCondicion: 1000,
+      },
+    ];
 
-    (obtenerClimaPorCiudad as jest.Mock).mockResolvedValue(mockClima);
+    (obtenerClimaPorUbicacion as jest.Mock).mockResolvedValue({
+      clima: mockClima,
+      nombreCiudad: 'Buenos Aires',
+    });
 
     const { result } = renderHook(() => useClima());
 
@@ -34,18 +59,18 @@ describe('useClima', () => {
       expect(result.current.clima.length).toBeGreaterThan(0);
     });
 
-    expect(obtenerClimaPorCiudad).toHaveBeenCalledWith('Buenos Aires');
-    expect(result.current.clima).toEqual(mockClima);
+    expect(result.current.clima[0].ciudad).toBe('VILLA CELINA, CABA');
     expect(result.current.indiceDiaSeleccionado).toBe(1);
   });
 
-  test('cambia el día seleccionado', async () => {
-    const mockClima = [
-      { ciudad: 'Buenos Aires', fecha: '2026-04-14', min: 10, max: 20 },
-      { ciudad: 'Buenos Aires', fecha: '2026-04-15', min: 12, max: 22 },
-    ];
-
-    (obtenerClimaPorCiudad as jest.Mock).mockResolvedValue(mockClima);
+  test('permite cambiar día', async () => {
+    (obtenerClimaPorUbicacion as jest.Mock).mockResolvedValue({
+      clima: [
+        { ciudad: 'X', fecha: '1', min: 0, max: 0, codigoCondicion: 1000 },
+        { ciudad: 'X', fecha: '2', min: 0, max: 0, codigoCondicion: 1000 },
+      ],
+      nombreCiudad: 'Buenos Aires',
+    });
 
     const { result } = renderHook(() => useClima());
 
@@ -60,15 +85,16 @@ describe('useClima', () => {
     expect(result.current.indiceDiaSeleccionado).toBe(0);
   });
 
-  test('maneja error al cargar clima', async () => {
-    (obtenerClimaPorCiudad as jest.Mock).mockRejectedValue(new Error('API error'));
+  test('maneja error', async () => {
+    (obtenerClimaPorUbicacion as jest.Mock).mockRejectedValue(new Error('API error'));
 
     const { result } = renderHook(() => useClima());
 
     await waitFor(() => {
-      expect(result.current.clima).toEqual([]);
+      expect(result.current.loading).toBe(false);
     });
 
-    expect(obtenerClimaPorCiudad).toHaveBeenCalled();
+    expect(result.current.clima.length).toBe(1);
+    expect(result.current.clima[0].ciudad).toBe('SIN CONEXIÓN');
   });
 });

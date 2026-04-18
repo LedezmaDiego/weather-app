@@ -21,10 +21,14 @@ describe('useUbicacionActual', () => {
 
     const ubicacion = await result.current.obtenerUbicacionActual();
 
-    expect(ubicacion).toBe('-34.7,-58.4');
+    expect(ubicacion).toEqual({
+      lat: -34.7,
+      lon: -58.4,
+      permiso: true,
+    });
   });
 
-  test('usa fallback si no hay permiso', async () => {
+  test('fallback si no hay permiso', async () => {
     (Location.requestForegroundPermissionsAsync as jest.Mock).mockResolvedValue({
       status: 'denied',
     });
@@ -33,6 +37,10 @@ describe('useUbicacionActual', () => {
 
     const ubicacion = await result.current.obtenerUbicacionActual();
 
-    expect(ubicacion).toBe('Ciudad Autónoma de Buenos Aires');
+    expect(ubicacion).toEqual({
+      lat: 0,
+      lon: 0,
+      permiso: false,
+    });
   });
 });

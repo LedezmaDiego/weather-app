@@ -6,7 +6,7 @@ describe('<HomeScreen />', () => {
   test('Text renders correctly on HomeScreen', () => {
     const { getByText } = render(<HomeScreen />);
 
-    // getByText('Welcome!');
+    // getByText('Welcome!');, cosas del video
     expect(getByText('Welcome!')).toBeOnTheScreen();
   });
 });
