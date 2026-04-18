@@ -93,24 +93,36 @@ export const PantallaDeClima = ({ clima, indiceDiaSeleccionado, onCambiarDia }: 
           </View>
         )}
 
-        <View className="w-full flex-row items-baseline justify-between px-10">
-          <Text
-            testID="temp-max"
-            className={`text-xl font-bold ${esDiaActual ? 'text-gray-500' : 'text-black'}`}>
-            ↑ {Math.round(diaSeleccionado.max)}°
-          </Text>
-
-          {esDiaActual && (
-            <Text testID="temp-current" className="text-5xl font-black leading-none text-black">
-              {Math.round(diaSeleccionado.temperatura!)}°
+        <View className="w-full flex-row items-end justify-between px-10">
+          {/* MAX */}
+          <View className="items-center">
+            <Text
+              testID="temp-max"
+              className={`text-xl font-bold ${esDiaActual ? 'text-gray-500' : 'text-black'}`}>
+              ↑ {Math.round(diaSeleccionado.max)}°
             </Text>
+            <Text className="text-sm text-gray-500">Máx.</Text>
+          </View>
+
+          {/* ACTUAL */}
+          {esDiaActual && (
+            <View className="items-center">
+              <Text testID="temp-current" className="text-5xl font-black leading-none text-black">
+                {Math.round(diaSeleccionado.temperatura!)}°
+              </Text>
+              <Text className="text-sm font-bold">Ahora</Text>
+            </View>
           )}
 
-          <Text
-            testID="temp-min"
-            className={`text-xl font-bold ${esDiaActual ? 'text-gray-500' : 'text-black'}`}>
-            ↓ {Math.round(diaSeleccionado.min)}°
-          </Text>
+          {/* MIN */}
+          <View className="items-center">
+            <Text
+              testID="temp-min"
+              className={`text-xl font-bold ${esDiaActual ? 'text-gray-500' : 'text-black'}`}>
+              ↓ {Math.round(diaSeleccionado.min)}°
+            </Text>
+            <Text className="text-sm text-gray-500">Mín.</Text>
+          </View>
         </View>
       </View>
     </View>
