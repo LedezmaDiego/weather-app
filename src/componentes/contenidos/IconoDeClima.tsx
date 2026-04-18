@@ -1,12 +1,4 @@
-import {
-  Sun,
-  Cloud,
-  CloudRain,
-  CloudSun,
-  CloudSnow,
-  CloudFog,
-  CloudLightning,
-} from 'lucide-react-native';
+import { Sun, Cloud, CloudRain, CloudSun, CloudFog, CloudLightning } from 'lucide-react-native';
 import {
   CODIGOS_CLIMA_SOLEADO,
   CODIGOS_CLIMA_PARCIALMENTE_NUBLADO,

@@ -15,8 +15,16 @@ const formatearFecha = (date: Date) => {
 
 const kmhAMetrosPorSegundo = (kmh: number) => kmh / 3.6;
 
-export const obtenerClimaPorCiudad = async (ubicacion: string): Promise<ClimaPorDia[]> => {
+export const obtenerClimaPorUbicacion = async (
+  lat: number,
+  lon: number
+): Promise<{
+  clima: ClimaPorDia[];
+  nombreCiudad: string;
+}> => {
   try {
+    const ubicacion = `${lat},${lon}`;
+
     const hoy = new Date();
     const ayerDate = new Date();
     ayerDate.setDate(hoy.getDate() - 1);
@@ -26,21 +34,30 @@ export const obtenerClimaPorCiudad = async (ubicacion: string): Promise<ClimaPor
     const resAyer = await fetch(
       `https://api.weatherapi.com/v1/history.json?key=${API_KEY}&q=${ubicacion}&dt=${ayerStr}&lang=es`
     );
+
     const dataAyer: WeatherApiHistoryResponse = await resAyer.json();
 
     const resForecast = await fetch(
       `https://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${ubicacion}&days=2&lang=es`
     );
+
     const dataForecast: WeatherApiForecastResponse = await resForecast.json();
 
     const nombreCiudad = dataForecast.location.name;
 
     const diaAyer = dataAyer.forecast.forecastday[0];
+    const mm = diaAyer.day.totalprecip_mm;
+
+    let codigoFinalAyer = diaAyer.day.condition.code;
+
+    if (mm < 0.5) {
+      codigoFinalAyer = 1003;
+    }
 
     const climaAyer: ClimaPorDia = {
       ciudad: nombreCiudad,
       condicion: diaAyer.day.condition.text,
-      codigoCondicion: diaAyer.day.condition.code,
+      codigoCondicion: codigoFinalAyer,
       fecha: diaAyer.date,
       temperatura: undefined,
       min: diaAyer.day.mintemp_c,
@@ -63,7 +80,6 @@ export const obtenerClimaPorCiudad = async (ubicacion: string): Promise<ClimaPor
         },
       ],
     };
-
     const horaActual = new Date().getHours();
 
     const climaForecast: ClimaPorDia[] = dataForecast.forecast.forecastday.map(
@@ -74,7 +90,6 @@ export const obtenerClimaPorCiudad = async (ubicacion: string): Promise<ClimaPor
 
         if (esHoy) {
           const horas = dia.hour;
-
           if (horas && horas[horaActual]) {
             probabilidadLluvia = horas[horaActual].chance_of_rain;
           }
@@ -83,13 +98,11 @@ export const obtenerClimaPorCiudad = async (ubicacion: string): Promise<ClimaPor
         return {
           ciudad: nombreCiudad,
           codigoCondicion: esHoy ? dataForecast.current.condition.code : dia.day.condition.code,
-
           condicion: esHoy ? dataForecast.current.condition.text : dia.day.condition.text,
           fecha: dia.date,
           temperatura: esHoy ? dataForecast.current.temp_c : undefined,
           min: dia.day.mintemp_c,
           max: esHoy ? Math.max(dia.day.maxtemp_c, dataForecast.current.temp_c) : dia.day.maxtemp_c,
-
           indicadores: [
             {
               tipo: 'Humedad',
@@ -113,9 +126,12 @@ export const obtenerClimaPorCiudad = async (ubicacion: string): Promise<ClimaPor
       }
     );
 
-    return [climaAyer, ...climaForecast];
+    return {
+      clima: [climaAyer, ...climaForecast],
+      nombreCiudad,
+    };
   } catch (error) {
-    console.error('Error al obtener datos de clima desde API:', error);
+    console.error('WEATHERAPI → error:', error);
     throw error;
   }
 };

@@ -1,4 +1,4 @@
-import { View, Text } from 'react-native';
+import { View, Text, ActivityIndicator } from 'react-native';
 import { Droplets, Flag, CloudRain } from 'lucide-react-native';
 import { IconoDeClima } from './IconoDeClima';
 import { NavegacionDeDias } from './NavegacionDeDias';
@@ -14,6 +14,7 @@ import {
 
 type Props = {
   clima: ClimaPorDia[];
+  loading: boolean;
   indiceDiaSeleccionado: number;
   onCambiarDia: (nuevoIndice: number) => void;
 };
@@ -29,13 +30,22 @@ const mapearCodigoACondicion = (codigo: number): string => {
   return 'unknown';
 };
 
-export const PantallaDeClima = ({ clima, indiceDiaSeleccionado, onCambiarDia }: Props) => {
+export const PantallaDeClima = ({ clima, loading, indiceDiaSeleccionado, onCambiarDia }: Props) => {
   const diaSeleccionado = clima[indiceDiaSeleccionado];
+
+  if (loading) {
+    return (
+      <View className="flex-1 items-center justify-center bg-white">
+        <ActivityIndicator size="large" />
+        <Text className="mt-4 text-lg text-black">Cargando clima...</Text>
+      </View>
+    );
+  }
 
   if (!diaSeleccionado) {
     return (
-      <View className="flex-1 items-center justify-center">
-        <Text>Cargando clima...</Text>
+      <View className="flex-1 items-center justify-center bg-white">
+        <Text className="text-lg text-black">Cargando...</Text>
       </View>
     );
   }
@@ -114,7 +124,6 @@ export const PantallaDeClima = ({ clima, indiceDiaSeleccionado, onCambiarDia }: 
             </View>
           )}
 
-          {/* MIN */}
           <View className="items-center">
             <Text
               testID="temp-min"
