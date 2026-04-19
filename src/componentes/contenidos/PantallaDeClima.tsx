@@ -1,5 +1,5 @@
 import { View, Text, ActivityIndicator } from 'react-native';
-import { Droplets, Flag, CloudRain } from 'lucide-react-native';
+import { Droplets, Flag, CloudRain, Moon, CloudMoon } from 'lucide-react-native';
 import { IconoDeClima } from './IconoDeClima';
 import { NavegacionDeDias } from './NavegacionDeDias';
 import { ClimaPorDia } from '@/src/tipos/clima';
@@ -33,6 +33,9 @@ const mapearCodigoACondicion = (codigo: number): string => {
 export const PantallaDeClima = ({ clima, loading, indiceDiaSeleccionado, onCambiarDia }: Props) => {
   const diaSeleccionado = clima[indiceDiaSeleccionado];
 
+  const horaActual = new Date().getHours();
+  const esDeNoche = horaActual >= 20 || horaActual < 5;
+
   if (loading) {
     return (
       <View className="flex-1 items-center justify-center bg-white">
@@ -52,6 +55,12 @@ export const PantallaDeClima = ({ clima, loading, indiceDiaSeleccionado, onCambi
 
   const esDiaActual = diaSeleccionado.temperatura !== undefined;
 
+  const probabilidadLluvia =
+    diaSeleccionado.indicadores?.find((i) => i.tipo.toLowerCase().includes('prob'))?.valor ?? 0;
+
+  const hayLluvia = CODIGOS_CLIMA_LLUVIA.includes(diaSeleccionado.codigoCondicion);
+  const altaProbabilidadLluvia = probabilidadLluvia >= 50;
+
   const obtenerIconoIndicador = (tipo: string) => {
     const tipoNormalizado = tipo.toLowerCase();
 
@@ -64,6 +73,22 @@ export const PantallaDeClima = ({ clima, loading, indiceDiaSeleccionado, onCambi
   };
 
   const condition = mapearCodigoACondicion(diaSeleccionado.codigoCondicion);
+
+  const renderIcono = () => {
+    if (esDiaActual && esDeNoche) {
+      if (hayLluvia) {
+        return <CloudRain size={180} strokeWidth={1.8} />;
+      }
+
+      if (altaProbabilidadLluvia) {
+        return <CloudMoon size={180} strokeWidth={1.8} />;
+      }
+
+      return <Moon size={180} strokeWidth={1.8} />;
+    }
+
+    return <IconoDeClima codigo={diaSeleccionado.codigoCondicion} />;
+  };
 
   return (
     <View testID="screen-weather" className="flex-1 bg-white">
@@ -84,7 +109,7 @@ export const PantallaDeClima = ({ clima, loading, indiceDiaSeleccionado, onCambi
           testID={`icon-weather-${condition}`}
           accessibilityRole="image"
           className="h-[220px] w-[220px] items-center justify-center">
-          <IconoDeClima codigo={diaSeleccionado.codigoCondicion} />
+          {renderIcono()}
         </View>
 
         {diaSeleccionado.indicadores && (
@@ -104,7 +129,6 @@ export const PantallaDeClima = ({ clima, loading, indiceDiaSeleccionado, onCambi
         )}
 
         <View className="w-full flex-row items-end justify-between px-10">
-          {/* MAX */}
           <View className="items-center">
             <Text
               testID="temp-max"
@@ -114,7 +138,6 @@ export const PantallaDeClima = ({ clima, loading, indiceDiaSeleccionado, onCambi
             <Text className="text-sm text-gray-500">Máx.</Text>
           </View>
 
-          {/* ACTUAL */}
           {esDiaActual && (
             <View className="items-center">
               <Text testID="temp-current" className="text-5xl font-black leading-none text-black">

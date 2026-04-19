@@ -2,11 +2,12 @@ import { ContenedorDePantallaClima } from '../contenedores/ContenedorDePantallaC
 import { useClima } from '../../hooks/useClima';
 
 export const ControladorDeClima = () => {
-  const { clima, indiceDiaSeleccionado, onCambiarDia } = useClima();
+  const { clima, loading, indiceDiaSeleccionado, onCambiarDia } = useClima();
 
   return (
     <ContenedorDePantallaClima
       clima={clima}
+      loading={loading}
       indiceDiaSeleccionado={indiceDiaSeleccionado}
       onCambiarDia={onCambiarDia}
     />
