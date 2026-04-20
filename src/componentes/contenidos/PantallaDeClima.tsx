@@ -112,21 +112,21 @@ export const PantallaDeClima = ({ clima, loading, indiceDiaSeleccionado, onCambi
           {renderIcono()}
         </View>
 
-        {diaSeleccionado.indicadores && (
-          <View className="gap-3">
-            {diaSeleccionado.indicadores.map((indicador) => (
-              <View
-                testID="metric-item"
-                key={indicador.tipo}
-                className="flex-row items-center gap-3">
-                <View testID="metric-icon">{obtenerIconoIndicador(indicador.tipo)}</View>
-                <Text testID="metric-value" className="text-lg text-black">
-                  {Math.round(indicador.valor)} {indicador.unidad}
-                </Text>
-              </View>
-            ))}
-          </View>
-        )}
+{diaSeleccionado.indicadores && (
+  <View className="w-full gap-3 items-start">
+    {diaSeleccionado.indicadores.map((indicador) => (
+      <View
+        testID="metric-item"
+        key={indicador.tipo}
+        className="flex-row items-center gap-3">
+        <View testID="metric-icon">{obtenerIconoIndicador(indicador.tipo)}</View>
+        <Text testID="metric-value" className="text-lg text-black">
+          {Math.round(indicador.valor)} {indicador.unidad}
+        </Text>
+      </View>
+    ))}
+  </View>
+)}
 
         <View className="w-full flex-row items-end justify-between px-10">
           <View className="items-center">
