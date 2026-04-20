@@ -1,5 +1,15 @@
-import { ControladorDeClima } from '@/src/componentes/controladores/ControladorDeClima';
+import { ContenedorDePantallaClima } from '@/src/componentes/contenedores/ContenedorDePantallaClima';
+import { useClima } from '@/src/hooks/useClima';
 
 export default function Home() {
-  return <ControladorDeClima />;
+  const { clima, loading, indiceDiaSeleccionado, onCambiarDia } = useClima();
+
+  return (
+    <ContenedorDePantallaClima
+      clima={clima}
+      loading={loading}
+      indiceDiaSeleccionado={indiceDiaSeleccionado}
+      onCambiarDia={onCambiarDia}
+    />
+  );
 }
