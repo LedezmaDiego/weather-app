@@ -26,7 +26,8 @@ export const NavegacionDeDias = ({ indice, onCambiarDia, fechas }: Props) => {
       <Pressable
         testID="button-prev-day"
         onPress={() => indice > 0 && onCambiarDia(indice - 1)}
-        className="flex-1 flex-row items-center">
+        className="flex-1 flex-row items-center"
+        hitSlop={20}>
         {indice > 0 && (
           <>
             <ChevronLeft size={16} />
@@ -44,7 +45,8 @@ export const NavegacionDeDias = ({ indice, onCambiarDia, fechas }: Props) => {
       <Pressable
         testID="button-next-day"
         onPress={() => indice < fechas.length - 1 && onCambiarDia(indice + 1)}
-        className="flex-1 flex-row items-center justify-end">
+        className="flex-1 flex-row items-center justify-end"
+        hitSlop={20}>
         {indice < fechas.length - 1 && (
           <>
             <Text className="opacity-70">{formatearFecha(fechaSiguiente)}</Text>
