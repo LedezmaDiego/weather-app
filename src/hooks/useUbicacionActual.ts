@@ -1,5 +1,7 @@
 import * as Location from 'expo-location';
 
+let yaPidioPermiso = false;
+
 export const useUbicacionActual = () => {
   const obtenerUbicacionActual = async (): Promise<{
     lat: number;
@@ -7,6 +9,16 @@ export const useUbicacionActual = () => {
     permiso: boolean;
   }> => {
     try {
+      if (yaPidioPermiso) {
+        return {
+          lat: 0,
+          lon: 0,
+          permiso: false,
+        };
+      }
+
+      yaPidioPermiso = true;
+
       const { status } = await Location.requestForegroundPermissionsAsync();
 
       if (status !== 'granted') {
