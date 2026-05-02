@@ -6,7 +6,9 @@ type Props = {
 
 export default function EncabezadoDeCiudad({ ciudad }: Props) {
   return (
-    <Text className="text-center text-3xl font-black uppercase tracking-widest text-black">
+    <Text
+      testID="header-city"
+      className="text-center text-3xl font-black uppercase tracking-widest text-black">
       {ciudad}
     </Text>
   );

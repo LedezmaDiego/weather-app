@@ -9,8 +9,8 @@ export default function TarjetaParaDatosClimaticos({ dia }: Props) {
   return (
     <View className="w-full items-start gap-3">
       {dia.indicadores?.map((indicador) => (
-        <View key={indicador.tipo} className="flex-row items-center gap-3">
-          <Text className="text-lg text-black">
+        <View testID="metric-item" key={indicador.tipo} className="flex-row items-center gap-3">
+          <Text testID="metric-value" className="text-lg text-black">
             {Math.round(indicador.valor)} {indicador.unidad}
           </Text>
         </View>
@@ -18,13 +18,15 @@ export default function TarjetaParaDatosClimaticos({ dia }: Props) {
 
       <View className="w-full flex-row items-end justify-between px-10">
         <View className="items-center">
-          <Text className="text-xl font-bold text-gray-500">↑ {Math.round(dia.max)}°</Text>
+          <Text testID="temp-max" className="text-xl font-bold text-gray-500">
+            ↑ {Math.round(dia.max)}°
+          </Text>
           <Text className="text-sm text-gray-500">Máx.</Text>
         </View>
 
         {dia.temperatura !== undefined && (
           <View className="items-center">
-            <Text className="text-5xl font-black leading-none text-black">
+            <Text testID="temp-current" className="text-5xl font-black leading-none text-black">
               {Math.round(dia.temperatura)}°
             </Text>
             <Text className="text-sm font-bold">Ahora</Text>
@@ -32,7 +34,9 @@ export default function TarjetaParaDatosClimaticos({ dia }: Props) {
         )}
 
         <View className="items-center">
-          <Text className="text-xl font-bold text-gray-500">↓ {Math.round(dia.min)}°</Text>
+          <Text testID="temp-min" className="text-xl font-bold text-gray-500">
+            ↓ {Math.round(dia.min)}°
+          </Text>
           <Text className="text-sm text-gray-500">Mín.</Text>
         </View>
       </View>
