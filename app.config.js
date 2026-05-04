@@ -1,6 +1,6 @@
 export default {
   expo: {
-    name: 'weather-app',
+    name: 'Clima',
     slug: 'weather-app',
     version: '1.0.0',
     orientation: 'portrait',
