@@ -48,7 +48,7 @@ Crear archivo `.env` en el proyecto:
 EXPO_PUBLIC_WEATHER_API_KEY=tu_api_key
 ```
 
-> ⚠️ La APK ya incluye una API Key funcional, no es necesario configurarla para uso normal
+>  La APK ya incluye una API Key funcional, no es necesario configurarla para uso normal
 
 4. Instalar dependencias:
 
