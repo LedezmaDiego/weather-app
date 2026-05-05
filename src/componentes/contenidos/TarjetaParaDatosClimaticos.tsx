@@ -1,8 +1,16 @@
 import { View, Text } from 'react-native';
+import { Droplets, CloudRain, Wind, Thermometer } from 'lucide-react-native';
 import { ClimaPorDia } from '@/src/tipos/clima';
 
 type Props = {
   dia: ClimaPorDia;
+};
+
+const ICONO_POR_TIPO: Record<string, React.ReactNode> = {
+  'Humedad': <Droplets size={20} strokeWidth={1.8} />,
+  'Probabilidad de lluvia': <CloudRain size={20} strokeWidth={1.8} />,
+  'Precipitación': <CloudRain size={20} strokeWidth={1.8} />,
+  'Viento': <Wind size={20} strokeWidth={1.8} />,
 };
 
 export default function TarjetaParaDatosClimaticos({ dia }: Props) {
@@ -10,8 +18,12 @@ export default function TarjetaParaDatosClimaticos({ dia }: Props) {
     <View className="w-full items-start gap-3">
       {dia.indicadores?.map((indicador) => (
         <View testID="metric-item" key={indicador.tipo} className="flex-row items-center gap-3">
+          <View testID="metric-icon">
+            {ICONO_POR_TIPO[indicador.tipo] ?? <Thermometer size={20} strokeWidth={1.8} />}
+          </View>
           <Text testID="metric-value" className="text-lg text-black">
             {Math.round(indicador.valor)} {indicador.unidad}
+            
           </Text>
         </View>
       ))}
