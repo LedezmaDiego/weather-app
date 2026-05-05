@@ -22,8 +22,8 @@ export default function TarjetaParaDatosClimaticos({ dia }: Props) {
             {ICONO_POR_TIPO[indicador.tipo] ?? <Thermometer size={20} strokeWidth={1.8} />}
           </View>
           <Text testID="metric-value" className="text-lg text-black">
-            {Math.round(indicador.valor)} {indicador.unidad}
-            
+            {Math.round(indicador.valor)} {''}
+              <Text className="font-bold">{indicador.unidad}</Text>
           </Text>
         </View>
       ))}
